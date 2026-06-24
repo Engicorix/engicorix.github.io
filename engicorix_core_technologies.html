@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>엔지코릭스 Core Competencies</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;background:#f4f7fb;color:#1a2030;min-height:100vh}
+header{background:#fff;border-bottom:1px solid #e4e8f0;padding:20px 24px 14px;display:flex;flex-direction:column;align-items:center;gap:9px}
+.header-logo{height:42px;width:auto;display:block}
+header p{font-size:12.5px;color:#7a8898;line-height:1.6;max-width:580px;text-align:center}
+header p strong{color:#148860;font-weight:700}
+.filter-row{display:flex;justify-content:center;gap:10px;padding:11px 24px;background:#fff;border-bottom:1px solid #e4e8f0;flex-wrap:wrap}
+.ftab{padding:6px 16px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #d0d8e8;color:#7a8898;background:#fff;transition:all .18s}
+.ftab.f-all.active{background:#0d1a2e;border-color:#0d1a2e;color:#fff}
+.ftab.f-om.active{background:#148860;border-color:#148860;color:#fff}
+.ftab.f-epc.active{background:#b86810;border-color:#b86810;color:#fff}
+.ftab.f-dt.active{background:#5828b8;border-color:#5828b8;color:#fff}
+.map-wrap{max-width:940px;margin:0 auto;padding:8px 8px 0}
+svg#techmap{display:block;width:100%;height:auto;overflow:visible}
+.hx polygon{transition:filter .15s}.hx:hover polygon{filter:brightness(.87) saturate(1.2)}
+.common-wrap{max-width:940px;margin:0 auto;padding:8px 20px 24px}
+.common-wrap h3{font-size:10.5px;color:#8a9aaa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:5px 12px;border-radius:999px;font-size:11.5px;background:#fff;border:1px solid #d8e4f0;color:#5a6a7a;font-weight:500}
+.legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:11px 24px;border-top:1px solid #e4e8f0;background:#fff}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#7a8898}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+footer{text-align:center;padding:12px;font-size:10px;color:#bbc4cc;border-top:1px solid #e8edf4;background:#fff;letter-spacing:.06em}
+.tip-overlay{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(10,20,40,.45);padding:20px}
+.tip-overlay.show{display:flex}
+.tip-card{background:#fff;border-radius:18px;border:1px solid #d8e4f0;box-shadow:0 8px 40px rgba(0,0,0,.14);padding:24px 26px 20px;max-width:430px;width:100%;position:relative;animation:popIn .15s ease}
+@keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.tip-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;color:#aab;cursor:pointer;padding:4px}
+.tip-close:hover{color:#445}
+.tip-pillar{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.tip-title{font-size:17px;font-weight:800;color:#0d1a2e;margin-bottom:7px;line-height:1.3}
+.tip-desc{font-size:12.5px;color:#5a6a7a;line-height:1.72;margin-bottom:11px}
+.tip-pts{list-style:none;padding:0}
+.tip-pts li{font-size:12px;color:#3a4a5a;padding:5px 0 5px 15px;position:relative;border-bottom:1px solid #f0f4f8;line-height:1.5}
+.tip-pts li::before{content:'';position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%}
+.tip-pts.om li::before{background:#148860}
+.tip-pts.epc li::before{background:#b86810}
+.tip-pts.dt li::before{background:#5828b8}
+</style>
+</head>
+<body>
+<header>
+  <img src="data:image/png;base64,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" alt="ENGICORIX" class="header-logo"/>
+  <p>보전(O&amp;M) · EPC · Deep-Tech 세 축의 <strong>Engineering Closed-Loop</strong>를 통해<br><strong>자율제조 엔지니어링 솔루션</strong>을 제공합니다.</p>
+</header>
+<div class="filter-row">
+  <button class="ftab f-all active" onclick="filterPillar('all')">전체 보기</button>
+  <button class="ftab f-om"  onclick="filterPillar('om')">● 보전 / O&amp;M</button>
+  <button class="ftab f-epc" onclick="filterPillar('epc')">● EPC</button>
+  <button class="ftab f-dt"  onclick="filterPillar('dt')">● Deep-Tech / R&amp;D</button>
+</div>
+<div class="map-wrap">
+<svg id="techmap" viewBox="92 37 796 721" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+<defs>
+  <filter id="sh" x="-25%" y="-25%" width="150%" height="150%">
+    <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#00000010"/>
+  </filter>
+  <filter id="shB" x="-35%" y="-35%" width="170%" height="170%">
+    <feDropShadow dx="0" dy="3" stdDeviation="7" flood-color="#00000020"/>
+  </filter>
+  <filter id="shC" x="-60%" y="-60%" width="220%" height="220%">
+    <feDropShadow dx="0" dy="2" stdDeviation="10" flood-color="#1cb87818"/>
+  </filter>
+  <marker id="arr-dt"  markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#5828b8" opacity="0.9"/>
+  </marker>
+  <marker id="arr-epc" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#b86810" opacity="0.9"/>
+  </marker>
+  <marker id="arr-om"  markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#148860" opacity="0.9"/>
+  </marker>
+</defs>
+
+<!-- Engineering Closed-Loop 텍스트: 중심과 DT 필러 사이 -->
+<text x="490" y="370" text-anchor="middle" font-size="10" fill="#7a9ab8" font-weight="600" letter-spacing="2.5">Engineering  Closed-Loop</text>
+
+<!-- 점선 화살표 아크 3개 (정확한 원호) -->
+<path d="M539.30,251.33 A195,195 0 0,1 678.91,488.35" fill="none" stroke="#5828b8" stroke-width="2.5" opacity="0.75" stroke-dasharray="7 4" marker-end="url(#arr-dt)"/>
+<path d="M628.74,577.03 A195,195 0 0,1 353.67,579.43" fill="none" stroke="#b86810" stroke-width="2.5" opacity="0.75" stroke-dasharray="7 4" marker-end="url(#arr-epc)"/>
+<path d="M301.96,491.64 A195,195 0 0,1 437.41,252.22" fill="none" stroke="#148860" stroke-width="2.5" opacity="0.75" stroke-dasharray="7 4" marker-end="url(#arr-om)"/>
+
+<!-- 루프 레이블 (각 아크 중간) -->
+<rect x="634.7" y="326.5" width="72.6" height="18" rx="9" fill="white" opacity="0.92" filter="url(#sh)"/>
+<text x="671.0" y="339.5" text-anchor="middle" font-size="11" font-weight="800" fill="#5828b8" letter-spacing="0.2">공정 IP 확보</text>
+<rect x="460.5" y="640.0" width="58.9" height="18" rx="9" fill="white" opacity="0.92" filter="url(#sh)"/>
+<text x="490.0" y="653.0" text-anchor="middle" font-size="11" font-weight="800" fill="#b86810" letter-spacing="0.2">플랜트 인도</text>
+<rect x="265.9" y="326.5" width="86.2" height="18" rx="9" fill="white" opacity="0.92" filter="url(#sh)"/>
+<text x="309.0" y="339.5" text-anchor="middle" font-size="11" font-weight="800" fill="#148860" letter-spacing="0.2">현장 데이터 피드백</text>
+
+<!-- 연결선 -->
+<line x1="451.2" y1="220.4" x2="412.2" y2="195.6" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="472.1" y1="202.6" x2="467.1" y2="190.6" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="507.9" y1="202.6" x2="512.9" y2="190.6" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="528.8" y1="220.4" x2="567.8" y2="195.6" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="461.1" y1="209.2" x2="403.5" y2="138.2" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="479.0" y1="200.3" x2="461.7" y2="129.6" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="501.0" y1="200.3" x2="518.3" y2="129.6" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="518.9" y1="209.2" x2="576.5" y2="138.2" stroke="#8050d0" stroke-width="0.8" opacity="0.2"/>
+<line x1="699.6" y1="516.2" x2="740.5" y2="494.8" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="704.5" y1="543.2" x2="717.5" y2="544.9" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="686.7" y1="574.2" x2="694.5" y2="584.6" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="660.8" y1="583.5" x2="662.7" y2="629.6" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="704.3" y1="530.3" x2="794.6" y2="516.0" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="703.0" y1="550.3" x2="773.0" y2="570.7" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="692.1" y1="569.3" x2="744.7" y2="619.8" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="675.4" y1="580.4" x2="708.1" y2="665.8" stroke="#d88820" stroke-width="0.8" opacity="0.2"/>
+<line x1="319.2" y1="583.5" x2="317.3" y2="629.6" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="293.3" y1="574.2" x2="285.5" y2="584.6" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="275.5" y1="543.2" x2="262.5" y2="544.9" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="280.4" y1="516.2" x2="239.5" y2="494.8" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="304.6" y1="580.4" x2="271.9" y2="665.8" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="287.9" y1="569.3" x2="235.3" y2="619.8" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="277.0" y1="550.3" x2="207.0" y2="570.7" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+<line x1="275.7" y1="530.3" x2="185.4" y2="516.0" stroke="#1cb878" stroke-width="0.8" opacity="0.2"/>
+
+<!-- 버블 -->
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','기업부설연구소','기업부설연구소를 운영하며 체계적인 R&amp;D 역량을 갖추고 있습니다. 연구개발 세제 혜택과 전문 연구인력을 기반으로 기술 혁신을 추진합니다.',['연구소 인증 및 운영','R&amp;D 세제 혜택 활용','전문 연구인력 확보'])" style="cursor:pointer">
+  <polygon points="413.0,194.3 381.8,212.3 350.6,194.3 350.6,158.3 381.8,140.3 413.0,158.3" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="381.8" y="161.3" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">기업부설</text>
+  <text x="381.8" y="174.3" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">연구소</text>
+  <text x="381.8" y="190.3" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">R&amp;D 기반</text>
+  <text x="381.8" y="200.3" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">제도 구축</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','OLED 승화공정 자동화','OLED 제조용 승화공정 인라인 자동화 시스템 개발 역량을 보유합니다. 반도체·디스플레이 분야에서 차별화된 공정 기술력을 제공합니다.',['OLED 승화공정 설계','인라인 자동화 구현','공정 최적화 기술'])" style="cursor:pointer">
+  <polygon points="484.3,175.4 453.1,193.4 421.9,175.4 421.9,139.4 453.1,121.4 484.3,139.4" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="453.1" y="142.4" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">OLED</text>
+  <text x="453.1" y="155.4" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">공정 자동화</text>
+  <text x="453.1" y="171.4" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">차세대</text>
+  <text x="453.1" y="181.4" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">디스플레이</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','설비·기술 특허','핵심 기술에 대한 특허 출원 및 지식재산권 포트폴리오를 보유합니다. 차별화된 기술력을 지식재산으로 보호하며 기술 사업화를 추진합니다.',['핵심 기술 특허 출원','지식재산권 포트폴리오','기술 사업화 연계'])" style="cursor:pointer">
+  <polygon points="558.1,175.4 526.9,193.4 495.7,175.4 495.7,139.4 526.9,121.4 558.1,139.4" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="526.9" y="142.4" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">설비·기술</text>
+  <text x="526.9" y="155.4" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">특허</text>
+  <text x="526.9" y="171.4" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">IP 포트폴리오</text>
+  <text x="526.9" y="181.4" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">구축</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','Back-end 파운드리','반도체 후공정(패키징·테스트) 파운드리 사업 역량을 갖추고 있습니다. 팹리스형 제조업 전환 트렌드에 대응하는 후공정 솔루션을 제공합니다.',['후공정 기술 역량','파운드리 파트너십','팹리스 협업 모델'])" style="cursor:pointer">
+  <polygon points="629.4,194.3 598.2,212.3 567.0,194.3 567.0,158.3 598.2,140.3 629.4,158.3" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="598.2" y="161.3" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">Back-end</text>
+  <text x="598.2" y="174.3" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">파운드리</text>
+  <text x="598.2" y="190.3" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">반도체</text>
+  <text x="598.2" y="200.3" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">후공정 사업화</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','차세대 소재·공정','MRTL, LFP 배터리, 유리기판, CCL 등 차세대 소재 분야 공정 기술 역량을 보유합니다. 미래 소재·부품 시장을 선도하는 기술 솔루션을 제공합니다.',['MRTL 공정 기술','LFP 배터리 전공정','유리기판·CCL 기술'])" style="cursor:pointer">
+  <polygon points="412.1,128.2 380.9,146.2 349.7,128.2 349.7,92.2 380.9,74.2 412.1,92.2" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="380.9" y="95.2" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">차세대</text>
+  <text x="380.9" y="108.2" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">소재·공정</text>
+  <text x="380.9" y="124.2" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">MRTL·LFP</text>
+  <text x="380.9" y="134.2" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">유리기판</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','AI Color 개발','수작업으로 진행되던 엔지니어링 플라스틱 컬러 개발 공정을 AI 기반으로 전환하고 있습니다. 색상 예측 모델을 통해 개발 공정을 단축하고 품질 예측 가능성을 높이는 역량을 보유합니다.',['플라스틱 컬러 AI 예측 모델','개발 공정 자동화·단축','색상 품질 예측 정밀도 향상'])" style="cursor:pointer">
+  <polygon points="484.2,112.6 453.1,130.6 421.9,112.6 421.9,76.6 453.1,58.6 484.2,76.6" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="453.1" y="79.6" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">AI Color</text>
+  <text x="453.1" y="92.6" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">개발</text>
+  <text x="453.1" y="108.6" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">플라스틱 컬러</text>
+  <text x="453.1" y="118.6" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">AI 예측</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','산학·외부기관 협력','대학·연구기관·지자체와 공동 R&amp;D 협력 네트워크를 구축하고 있습니다. 개방형 혁신을 통해 외부 기술 자원을 적극 활용합니다.',['공동 연구개발 협약','지자체 파트너십','정부 과제 수주'])" style="cursor:pointer">
+  <polygon points="558.1,112.6 526.9,130.6 495.8,112.6 495.8,76.6 526.9,58.6 558.1,76.6" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="526.9" y="79.6" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">산학·</text>
+  <text x="526.9" y="92.6" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">외부 협력</text>
+  <text x="526.9" y="108.6" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">개방형 혁신</text>
+  <text x="526.9" y="118.6" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">파트너십</text>
+</g>
+<g class="hx bubble-g" data-pillar="dt" onclick="showTip('dt','Dark Factory 플랫폼','완전 자율화·무인화 공장 구현을 위한 통합 플랫폼 기술을 보유합니다. 글로벌 수출이 가능한 엔지니어링 솔루션 플랫폼으로 발전시키고 있습니다.',['완전 무인화 플랫폼','글로벌 솔루션 패키징','해외 시장 진출'])" style="cursor:pointer">
+  <polygon points="630.3,128.2 599.1,146.2 567.9,128.2 567.9,92.2 599.1,74.2 630.3,92.2" fill="#f0eaff" stroke="#8050d0" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="599.1" y="95.2" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">Dark Factory</text>
+  <text x="599.1" y="108.2" text-anchor="middle" font-size="10" font-weight="700" fill="#3a1880">플랫폼</text>
+  <text x="599.1" y="124.2" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">글로벌 수출</text>
+  <text x="599.1" y="134.2" text-anchor="middle" font-size="7.5" fill="#3a1880" opacity="0.65">솔루션</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','Plant Engineering','플랜트 기본·상세 설계 역량을 갖추고 있습니다. 풍부한 현장 도메인 지식을 바탕으로 최적화된 공정 설계 서비스를 제공합니다.',['공정 기본·상세 설계','배관·기기 설계(P&amp;ID)','3D 모델링·도면 작성'])" style="cursor:pointer">
+  <polygon points="803.6,496.1 772.4,514.1 741.3,496.1 741.3,460.1 772.4,442.1 803.6,460.1" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="772.4" y="463.1" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">Plant</text>
+  <text x="772.4" y="476.1" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">Engineering</text>
+  <text x="772.4" y="492.1" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">공장 설계</text>
+  <text x="772.4" y="502.1" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">엔지니어링</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','조달·구매 관리','경쟁력 있는 국내외 공급망 구축 및 자재·장비 조달 관리 역량을 보유합니다. 글로벌 소싱 네트워크를 통해 원가 경쟁력 있는 조달 서비스를 제공합니다.',['글로벌 벤더 소싱','LCC 국가 협업 조달','자재·납기 통합 관리'])" style="cursor:pointer">
+  <polygon points="784.4,567.3 753.2,585.3 722.0,567.3 722.0,531.3 753.2,513.3 784.4,531.3" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="753.2" y="534.3" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">조달</text>
+  <text x="753.2" y="547.3" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">관리</text>
+  <text x="753.2" y="563.3" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">글로벌</text>
+  <text x="753.2" y="573.3" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">소싱·조달</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','시공·건설 관리','EPC 시공 현장 관리 및 품질·공정·안전 통합 관리 능력을 보유합니다. 엔지니어링 역량과 현장 경험을 바탕으로 프로젝트 완벽 수행을 보장합니다.',['현장 공정·품질 관리','HSE 안전 관리 체계','시운전·인수 지원'])" style="cursor:pointer">
+  <polygon points="747.5,631.3 716.3,649.3 685.1,631.3 685.1,595.3 716.3,577.3 747.5,595.3" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="716.3" y="598.3" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">시공·</text>
+  <text x="716.3" y="611.3" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">건설 관리</text>
+  <text x="716.3" y="627.3" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">현장 시공</text>
+  <text x="716.3" y="637.3" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">품질 보증</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','안전설계 (DfS)','설계 단계부터 안전을 내재화하는 Design for Safety 체계를 운영합니다. 체계적 안전설계로 차별화된 EPC 경쟁력을 보유합니다.',['설계 위험성 사전 평가','안전 설계 기준 수립','DfS 대외 인증 추진'])" style="cursor:pointer">
+  <polygon points="695.4,683.5 664.2,701.5 633.0,683.5 633.0,647.5 664.2,629.5 695.4,647.5" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="664.2" y="650.5" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">안전설계</text>
+  <text x="664.2" y="663.5" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">DfS</text>
+  <text x="664.2" y="679.5" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">설계 단계</text>
+  <text x="664.2" y="689.5" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">안전 내재화</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','AI 기반 자동화 설계','AI를 활용한 설계 자동화 및 디지털 트윈 구현 역량을 갖추고 있습니다. 설계 기간 단축과 오류 최소화를 통해 EPC 경쟁력을 제공합니다.',['AI 설계 자동화 툴','디지털 트윈 구현','설계 오류 제로화'])" style="cursor:pointer">
+  <polygon points="861.3,528.4 830.1,546.4 799.0,528.4 799.0,492.4 830.1,474.4 861.3,492.4" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="830.1" y="495.4" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">AI/Data</text>
+  <text x="830.1" y="508.4" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">자동화 설계</text>
+  <text x="830.1" y="524.4" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">디지털</text>
+  <text x="830.1" y="534.4" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">설계 혁신</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','EPC+O&amp;M Total','EPC 설계·시공에서 운영·유지보수까지 원스톱 통합 서비스를 제공합니다. 고객 생애주기 전반을 아우르는 토탈 솔루션 역량을 보유합니다.',['설계~운영 전주기 커버','고객 TCO 최소화','O&amp;M 연계 장기 파트너십'])" style="cursor:pointer">
+  <polygon points="838.8,598.7 807.6,616.7 776.4,598.7 776.4,562.7 807.6,544.7 838.8,562.7" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="807.6" y="565.7" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">EPC+O&amp;M</text>
+  <text x="807.6" y="578.7" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">Total</text>
+  <text x="807.6" y="594.7" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">설계~운영</text>
+  <text x="807.6" y="604.7" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">원스톱</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','인허가 역량','종합건설업 면허를 포함한 건설·설비 관련 인허가 프로세스 전문성을 보유합니다. 복잡한 법적 요건에도 신속하고 정확한 인허가 대응이 가능합니다.',['종합건설업 면허 보유','인허가 프로세스 전문화','규제 대응 체계 구축'])" style="cursor:pointer">
+  <polygon points="801.8,662.7 770.6,680.7 739.5,662.7 739.5,626.7 770.6,608.7 801.8,626.7" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="770.6" y="629.7" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">인허가</text>
+  <text x="770.6" y="642.7" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">역량</text>
+  <text x="770.6" y="658.7" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">법적 요건</text>
+  <text x="770.6" y="668.7" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">대응 전문성</text>
+</g>
+<g class="hx bubble-g" data-pillar="epc" onclick="showTip('epc','가스·누액 감지 사업','공장 내 가스 및 액체 누출 감지 시스템 구축·운영 역량을 보유합니다. 안전 분야 특화 솔루션으로 EPC 사업과의 시너지를 창출합니다.',['가스 감지 시스템 구축','누액 감지 자동화','안전 모니터링 통합'])" style="cursor:pointer">
+  <polygon points="752.2,717.4 721.0,735.4 689.9,717.4 689.9,681.4 721.0,663.4 752.2,681.4" fill="#fff6e0" stroke="#d88820" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="721.0" y="684.4" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">가스·누액</text>
+  <text x="721.0" y="697.4" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3808">감지</text>
+  <text x="721.0" y="713.4" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">안전 특화</text>
+  <text x="721.0" y="723.4" text-anchor="middle" font-size="7.5" fill="#6a3808" opacity="0.65">솔루션</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','설비 예지정비','AI 센서·데이터 기반 설비 이상 예측 역량을 보유하고 있습니다. 현장 도메인 지식을 바탕으로 사전 조치 체계를 운영합니다.',['AI 기반 이상 진단 알고리즘','설비 수명 예측 모델링','실시간 센서 데이터 통합'])" style="cursor:pointer">
+  <polygon points="347.0,683.5 315.8,701.5 284.6,683.5 284.6,647.5 315.8,629.5 347.0,647.5" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="315.8" y="650.5" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">설비</text>
+  <text x="315.8" y="663.5" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">예지정비</text>
+  <text x="315.8" y="679.5" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">AI·데이터</text>
+  <text x="315.8" y="689.5" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">이상 예측</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','스마트 팩토리','AI Sensor·Data 기반 스마트 팩토리 구축 역량을 갖추고 있습니다. 설비 데이터 수집·분석·시각화를 통해 생산 효율 극대화 및 무인화 솔루션을 제공합니다.',['생산 데이터 실시간 모니터링','자동화 라인 구축·운영','OEE 최적화 솔루션'])" style="cursor:pointer">
+  <polygon points="294.9,631.3 263.7,649.3 232.5,631.3 232.5,595.3 263.7,577.3 294.9,595.3" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="263.7" y="598.3" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">스마트</text>
+  <text x="263.7" y="611.3" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">팩토리</text>
+  <text x="263.7" y="627.3" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">AI 기반</text>
+  <text x="263.7" y="637.3" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">생산 자동화</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','O&amp;M Total Service','설비 운영에서 유지보수까지 전주기 토탈 서비스를 제공합니다. 고객사 생산 연속성 극대화를 위한 맞춤형 통합 솔루션을 운영합니다.',['정기점검·예방정비 계약','24/7 긴급 대응 체계','설비 이력 통합 관리'])" style="cursor:pointer">
+  <polygon points="258.0,567.3 226.8,585.3 195.6,567.3 195.6,531.3 226.8,513.3 258.0,531.3" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="226.8" y="534.3" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">O&amp;M</text>
+  <text x="226.8" y="547.3" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">Total Svc</text>
+  <text x="226.8" y="563.3" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">운영·유지보수</text>
+  <text x="226.8" y="573.3" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">통합 서비스</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','설비 리퍼비시 플랫폼','노후 설비를 정밀 검수·재생·검증하여 재판매하는 플랫폼 역량을 보유합니다. 설비 도메인 지식과 기술력을 활용한 고부가가치 서비스를 제공합니다.',['중고설비 정밀 진단','기능 복원·업그레이드','재판매 품질 보증'])" style="cursor:pointer">
+  <polygon points="238.7,496.1 207.6,514.1 176.4,496.1 176.4,460.1 207.6,442.1 238.7,460.1" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="207.6" y="463.1" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">설비</text>
+  <text x="207.6" y="476.1" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">리퍼비시</text>
+  <text x="207.6" y="492.1" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">노후 설비</text>
+  <text x="207.6" y="502.1" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">재생·재판매</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','SGF 후공정 자동화','특수 기능성 필름(SGF) 후공정 인라인·자동화 시스템 구축 역량을 보유합니다. 임가공 내재화를 통한 품질·원가 경쟁력을 제공합니다.',['필름 후공정 인라인 시스템','자동 검사·포장 라인','품질 데이터 실시간 수집'])" style="cursor:pointer">
+  <polygon points="290.1,717.4 259.0,735.4 227.8,717.4 227.8,681.4 259.0,663.4 290.1,681.4" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="259.0" y="684.4" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">SGF</text>
+  <text x="259.0" y="697.4" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">후공정</text>
+  <text x="259.0" y="713.4" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">인라인</text>
+  <text x="259.0" y="723.4" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">자동화 구축</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','에너지 진단·컨설팅','공장·건축물 에너지 사용 진단 및 절감 컨설팅 서비스를 제공합니다. 에너지 효율화 솔루션 설계·시공부터 정부 지원사업 연계까지 원스톱으로 지원합니다.',['에너지 사용 패턴 분석','절감 시스템 설계·시공','정부 지원사업 연계'])" style="cursor:pointer">
+  <polygon points="240.5,662.7 209.4,680.7 178.2,662.7 178.2,626.7 209.4,608.7 240.5,626.7" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="209.4" y="629.7" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">에너지</text>
+  <text x="209.4" y="642.7" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">진단</text>
+  <text x="209.4" y="658.7" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">효율화</text>
+  <text x="209.4" y="668.7" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">컨설팅</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','건축물 FM 사업','종합건설업 면허를 기반으로 건축물 Facility Management 정기 계약 서비스를 운영합니다. 체계적인 유지보수 프로세스로 시설 운영 효율을 높입니다.',['종합건설업 면허 보유','정기 계약 유지보수','시설 운영 최적화'])" style="cursor:pointer">
+  <polygon points="203.6,598.7 172.4,616.7 141.2,598.7 141.2,562.7 172.4,544.7 203.6,562.7" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="172.4" y="565.7" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">건축물</text>
+  <text x="172.4" y="578.7" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">FM 사업</text>
+  <text x="172.4" y="594.7" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">시설 유지보수</text>
+  <text x="172.4" y="604.7" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">정기 계약</text>
+</g>
+<g class="hx bubble-g" data-pillar="om" onclick="showTip('om','AI 자율제조','AI 기반 완전 자율제조 공장 구현 역량을 개발하고 있습니다. Dark Factory 솔루션을 통해 24시간 무중단 생산 환경을 지향합니다.',['자율 의사결정 시스템','무인 생산 라인 운영','글로벌 솔루션 수출'])" style="cursor:pointer">
+  <polygon points="181.0,528.4 149.9,546.4 118.7,528.4 118.7,492.4 149.9,474.4 181.0,492.4" fill="#e8f9f1" stroke="#1cb878" stroke-width="1.4" filter="url(#sh)"/>
+  <text x="149.9" y="495.4" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">AI</text>
+  <text x="149.9" y="508.4" text-anchor="middle" font-size="10" font-weight="700" fill="#0a5038">자율제조</text>
+  <text x="149.9" y="524.4" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">완전 무인화</text>
+  <text x="149.9" y="534.4" text-anchor="middle" font-size="7.5" fill="#0a5038" opacity="0.65">공장 구현</text>
+</g>
+
+<!-- 필러 헥사곤 -->
+<g class="pillar-g" data-pillar="dt">
+  <polygon points="536.0,245.0 513.0,284.8 467.0,284.8 444.0,245.0 467.0,205.2 513.0,205.2" fill="#5828b8" filter="url(#shB)"/>
+  <text x="490.0" y="234.0" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Deep-Tech</text>
+  <text x="490.0" y="249.0" text-anchor="middle" font-size="8" fill="#ffffffdd">R&amp;D · Innovation</text>
+  <text x="490.0" y="261.0" text-anchor="middle" font-size="7.5" fill="#ffffff99">연구개발 · 기술혁신</text>
+</g>
+<g class="pillar-g" data-pillar="epc">
+  <polygon points="704.9,537.5 681.9,577.3 635.9,577.3 612.9,537.5 635.9,497.7 681.9,497.7" fill="#b86810" filter="url(#shB)"/>
+  <text x="658.9" y="526.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">EPC</text>
+  <text x="658.9" y="541.5" text-anchor="middle" font-size="8" fill="#ffffffdd">Eng·Procurement·Const</text>
+  <text x="658.9" y="553.5" text-anchor="middle" font-size="7.5" fill="#ffffff99">설계 · 조달 · 시공</text>
+</g>
+<g class="pillar-g" data-pillar="om">
+  <polygon points="367.1,537.5 344.1,577.3 298.1,577.3 275.1,537.5 298.1,497.7 344.1,497.7" fill="#148860" filter="url(#shB)"/>
+  <text x="321.1" y="526.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">보전/O&amp;M</text>
+  <text x="321.1" y="541.5" text-anchor="middle" font-size="8" fill="#ffffffdd">Operation &amp; Maintenance</text>
+  <text x="321.1" y="553.5" text-anchor="middle" font-size="7.5" fill="#ffffff99">설비운영 · 유지보수</text>
+</g>
+
+<!-- 중심 허브 -->
+<circle cx="490" cy="440" r="62" fill="#ffffff" stroke="#c0e0d0" stroke-width="1.5" filter="url(#shC)"/>
+<circle cx="490" cy="440" r="52" fill="#fafffe" stroke="#d8ece4" stroke-width="1"/>
+<image href="data:image/png;base64,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" x="449" y="398" width="82" height="84" preserveAspectRatio="xMidYMid meet"/>
+</svg>
+</div>
+<div class="common-wrap">
+  <h3>🔗 Cross-cutting Capabilities — 공통 역량</h3>
+  <div class="chips">
+    <span class="chip">다양한 산업 분야 도메인 지식</span>
+    <span class="chip">AI / Data 분석 역량</span>
+    <span class="chip">Roll to Roll 공정</span>
+    <span class="chip">빠른 의사결정 체계</span>
+    <span class="chip">전문인력 육성</span>
+    <span class="chip">보안 Infra</span>
+  </div>
+</div>
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#148860"></div>보전 / O&amp;M</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#b86810"></div>EPC</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#5828b8"></div>Deep-Tech / R&amp;D</div>
+  <div class="leg-item" style="margin-left:8px"><span style="font-size:10px;color:#aab8c4">· 버블 클릭 → 상세 역량</span></div>
+</div>
+<footer>ENGICORIX Co., Ltd. · 엔지코릭스 주식회사 · 2026 · Confidential</footer>
+<div class="tip-overlay" id="tipOverlay" onclick="closeTipOut(event)">
+  <div class="tip-card">
+    <button class="tip-close" onclick="hideTip()">✕</button>
+    <div class="tip-pillar" id="ttPillar"></div>
+    <div class="tip-title"  id="ttTitle"></div>
+    <div class="tip-desc"   id="ttDesc"></div>
+    <ul class="tip-pts"     id="ttPts"></ul>
+  </div>
+</div>
+<script>
+const PM={om:{label:'보전 / O&M — Operation & Maintenance',color:'#148860'},epc:{label:'EPC — Engineering · Procurement · Construction',color:'#b86810'},dt:{label:'Deep-Tech — R&D · Innovation · Platform',color:'#5828b8'}};
+function showTip(p,t,desc,pts){
+  document.getElementById('ttPillar').textContent=PM[p].label;
+  document.getElementById('ttPillar').style.color=PM[p].color;
+  document.getElementById('ttTitle').textContent=t;
+  document.getElementById('ttDesc').textContent=desc;
+  const ul=document.getElementById('ttPts');ul.className='tip-pts '+p;
+  ul.innerHTML=pts.map(x=>'<li>'+x+'</li>').join('');
+  document.getElementById('tipOverlay').classList.add('show');
+}
+function hideTip(){document.getElementById('tipOverlay').classList.remove('show');}
+function closeTipOut(e){if(e.target===document.getElementById('tipOverlay'))hideTip();}
+function filterPillar(p){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.ftab.f-'+p).classList.add('active');
+  document.querySelectorAll('.bubble-g,.pillar-g').forEach(g=>{
+    const show=p==='all'||g.dataset.pillar===p;
+    g.style.opacity=show?'1':'0.1';g.style.pointerEvents=show?'auto':'none';
+  });
+}
+</script>
+</body>
+</html>
