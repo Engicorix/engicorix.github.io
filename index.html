@@ -21,7 +21,7 @@ body{font-family:'MICEGothic','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothi
 .hdr{display:flex;align-items:center;justify-content:space-between;
   padding:8px 18px;background:var(--bg2);border-bottom:1px solid var(--border);
   flex-shrink:0;position:relative;min-height:46px}
-.hdr img{height:27px;filter:brightness(1.1)}
+.hdr-logo {font-weight:900; font-size:18px; color:var(--hub); letter-spacing:1px;}
 .hdr-mid{position:absolute;left:50%;transform:translateX(-50%);
   font-size:11px;color:var(--muted);letter-spacing:.08em;font-weight:600;white-space:nowrap}
 .filters{display:flex;gap:5px}
@@ -36,10 +36,12 @@ body{font-family:'MICEGothic','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothi
 
 .layout{display:flex;flex:1;overflow:hidden}
 .gwrap{flex:1;position:relative;overflow:hidden;background:var(--bg)}
-canvas{display:block;width:100%;height:100%;cursor:default}
+/* 캔버스 드래그용 커서 */
+canvas{display:block;width:100%;height:100%;cursor:grab;}
+canvas:active{cursor:grabbing;}
 
 /* SIDEBAR */
-.sb{width:222px;flex-shrink:0;background:var(--bg2);
+.sb{width:250px;flex-shrink:0;background:var(--bg2);
   border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
 .sb::-webkit-scrollbar{width:3px}
 .sb::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
@@ -47,25 +49,16 @@ canvas{display:block;width:100%;height:100%;cursor:default}
 .sb-ttl{font-size:8.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
   color:var(--muted);margin-bottom:9px}
 
-/* 종합건설면허 */
-.lic{background:linear-gradient(135deg,#0d1a30,#102240);
-  border:1px solid #2a4878;border-radius:9px;padding:9px 11px;margin-bottom:0}
-.lic-t{font-size:10.5px;font-weight:900;color:#ffd060;margin-bottom:5px;
-  display:flex;align-items:center;gap:4px}
-.lic ul{list-style:none;padding:0}
-.lic li{font-size:9.5px;color:rgba(255,255,255,.75);padding:1.5px 0 1.5px 11px;
-  position:relative;line-height:1.4}
-.lic li::before{content:'▸';position:absolute;left:0;color:#ffd060;font-size:8px}
-
 /* Expert Pool */
 .pool{background:linear-gradient(135deg,#0d1a30,#142050);
-  border-radius:9px;padding:9px 11px;display:flex;align-items:center;gap:8px;margin-bottom:7px;
+  border-radius:9px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:8px;
   border:1px solid #1a3060}
-.pool-n{font-size:24px;font-weight:900;color:#fff;line-height:1}
-.pool-ns{font-size:14px}
+.pool-n{font-size:28px;font-weight:900;color:#fff;line-height:1}
+.pool-ns{font-size:14px; font-weight:600;}
 .pool-r{display:flex;flex-direction:column}
-.pool-l{font-size:10px;font-weight:700;color:rgba(255,255,255,.9)}
-.pool-s{font-size:8px;color:rgba(255,255,255,.45);margin-top:1px}
+/* Expert Pool 텍스트 가독성 상향 */
+.pool-l{font-size:13px;font-weight:800;color:#ffffff; letter-spacing: -0.3px;}
+.pool-s{font-size:10px;color:rgba(255,255,255,.8);margin-top:2px;}
 .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px}
 .dc{background:var(--bg3);border:1px solid var(--border);border-radius:7px;
   padding:7px 9px;transition:all .2s}
@@ -76,10 +69,20 @@ canvas{display:block;width:100%;height:100%;cursor:default}
 .barbox{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:7px 9px}
 .br{display:flex;align-items:center;gap:5px;margin-bottom:5px}
 .br:last-child{margin-bottom:0}
-.br-l{font-size:8.5px;color:var(--muted);width:40px;flex-shrink:0}
+.br-l{font-size:8.5px;color:var(--muted);width:45px;flex-shrink:0}
 .br-t{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
 .br-f{height:100%;border-radius:2px;transition:width 1.2s ease}
 .br-v{font-size:8.5px;font-weight:700;color:var(--text);width:15px;text-align:right}
+
+/* 면허 역량 */
+.lic{background:linear-gradient(135deg,#0d1a30,#102240);
+  border:1px solid #2a4878;border-radius:9px;padding:9px 11px;margin-bottom:0}
+.lic-t{font-size:10.5px;font-weight:900;color:#ffd060;margin-bottom:5px;
+  display:flex;align-items:center;gap:4px}
+.lic ul{list-style:none;padding:0}
+.lic li{font-size:9.5px;color:rgba(255,255,255,.75);padding:1.5px 0 1.5px 11px;
+  position:relative;line-height:1.4}
+.lic li::before{content:'▸';position:absolute;left:0;color:#ffd060;font-size:8px}
 
 .leg{display:flex;align-items:center;gap:6px;margin-bottom:5px}
 .leg:last-child{margin-bottom:0}
@@ -124,7 +127,599 @@ canvas{display:block;width:100%;height:100%;cursor:default}
   background:rgba(8,13,20,.95);color:var(--text);border:1px solid var(--border);
   border-radius:6px;padding:4px 10px;font-size:10px;font-family:inherit;font-weight:600;
   box-shadow:0 3px 12px rgba(0,0,0,.5);display:none;white-space:nowrap}
+
+/* 모바일 세로형(상하) 배치 복구 */
+@media (max-width: 768px) {
+  body { overflow: hidden; }
+  .hdr { flex-direction: column; height: auto; padding: 12px 10px; gap: 10px; }
+  .hdr-mid { position: relative; left: 0; transform: none; }
+  .filters { flex-wrap: wrap; justify-content: center; }
+  
+  .layout { flex-direction: column; }
+  .gwrap { flex: none; height: 50vh; }
+  .sb { width: 100%; height: 50vh; border-left: none; border-top: 1px solid var(--border); }
+  
+  #card { width: 90%; left: 5% !important; top: 10% !important; }
+}
 </style>
 </head>
 <body>
 <header class="hdr">
+  <div class="hdr-logo">ENGICORIX</div>
+  <div class="hdr-mid">Core Competencies &amp; Capabilities</div>
+  <div class="filters">
+    <button class="fb a-all" data-f="all">전체</button>
+    <button class="fb" data-f="om">보전/O&amp;M</button>
+    <button class="fb" data-f="epc">EPC</button>
+    <button class="fb" data-f="dt">Deep-Tech</button>
+  </div>
+</header>
+<div class="layout">
+  <div class="gwrap" id="gwrap">
+    <!-- 캔버스 영역: 마우스 휠(Zoom) 및 드래그(Pan) 적용됨 -->
+    <canvas id="c"></canvas>
+    <div id="card">
+      <div class="cstrip" id="cstrip"></div>
+      <div id="cbody">
+        <button class="cx" id="cx">&#x2715;</button>
+        <div class="cpil" id="cpil"></div>
+        <div class="cttl" id="cttl"></div>
+        <div class="cdesc" id="cdesc"></div>
+        <ul class="cpts" id="cpts"></ul>
+        <div class="crel" id="crel" style="display:none">
+          <div class="crel-t">&#x2014; 연관 역량</div>
+          <div class="crtags" id="crtags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="sb">
+    <!-- Expert Pool을 맨 위로 이동 -->
+    <div class="sb-sec">
+      <div class="sb-ttl">&#x2605; Expert Pool</div>
+      <div class="pool">
+        <div class="pool-n">120<span class="pool-ns">명</span></div>
+        <div class="pool-r">
+          <!-- 모호했던 텍스트 직관적으로 수정 -->
+          <div class="pool-l">사내 전문 엔지니어</div>
+          <div class="pool-s">프로젝트 및 R&D 투입 인력</div>
+        </div>
+      </div>
+      <div class="dgrid">
+        <div class="dc"><div class="dc-l">박사</div><div class="dc-n">4</div><div class="dc-s">Ph.D</div></div>
+        <div class="dc"><div class="dc-l">석사</div><div class="dc-n">22</div><div class="dc-s">Master</div></div>
+        <div class="dc"><div class="dc-l">학사</div><div class="dc-n">80</div><div class="dc-s">Bachelor</div></div>
+        <div class="dc"><div class="dc-l">기술사</div><div class="dc-n">8</div><div class="dc-s">PE License</div></div>
+      </div>
+      <div class="barbox">
+        <div class="br"><span class="br-l">기술사</span><div class="br-t"><div class="br-f" id="b1" style="width:0;background:#2288e8"></div></div><span class="br-v">8</span></div>
+        <div class="br"><span class="br-l">기사</span><div class="br-t"><div class="br-f" id="b2" style="width:0;background:#e8881a"></div></div><span class="br-v">55</span></div>
+        <div class="br"><span class="br-l">산업기사</span><div class="br-t"><div class="br-f" id="b3" style="width:0;background:#18c870"></div></div><span class="br-v">35</span></div>
+      </div>
+    </div>
+    
+    <!-- 인허 역량 -> 면허 역량으로 변경 -->
+    <div class="sb-sec">
+      <div class="sb-ttl">&#x2605; 핵심 면허 역량</div>
+      <div class="lic">
+        <div class="lic-t">&#x2605; 종합건설면허 보유</div>
+        <ul>
+          <li>토목건축공사업</li>
+          <li>산업환경설비공사업</li>
+          <li>건물용 기계/장비 설치</li>
+          <li>전기공사업</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="sb-sec">
+      <div class="sb-ttl">Capability Map</div>
+      <div class="leg"><div class="leg-d" style="background:#e8881a"></div><span class="leg-t">보전/O&amp;M</span><span class="leg-c">17개</span></div>
+      <div class="leg"><div class="leg-d" style="background:#2288e8"></div><span class="leg-t">EPC</span><span class="leg-c">17개</span></div>
+      <div class="leg"><div class="leg-d" style="background:#18c870"></div><span class="leg-t">Deep-Tech</span><span class="leg-c">17개</span></div>
+      <div style="margin-top:8px;padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:9px;color:var(--muted);line-height:1.8">
+        <b style="color:var(--text)">마우스 휠</b> → 확대/축소<br>
+        <b style="color:var(--text)">드래그</b> → 화면 이동<br>
+        점선 = 축간 연관성 연결
+      </div>
+    </div>
+  </aside>
+</div>
+<div id="tip"></div>
+
+<script>
+var COL={hub:"#58c8f8",om:"#e8881a",epc:"#2288e8",dt:"#18c870"};
+var COLD={hub:"#0a1828",om:"#1a1008",epc:"#080f1e",dt:"#061410"};
+var COLG={hub:"#1a3850",om:"#3a2010",epc:"#102040",dt:"#0a2818"};
+var PLAB={
+  om:{l:"\ubcf4\uc804/O&M",d:"Operation & Maintenance"},
+  epc:{l:"EPC",d:"Eng \u00b7 Procurement \u00b7 Construction"},
+  dt:{l:"Deep-Tech",d:"R&D \u00b7 Innovation \u00b7 Platform"}
+};
+
+// 줌(Zoom) & 이동(Pan) 상태 관리 변수
+var trans = { x: 0, y: 0, k: 1 };
+var isDragging = false;
+var dragStart = { x: 0, y: 0 };
+
+function hexPath(ctx,cx,cy,r){
+  ctx.beginPath();
+  for(var i=0;i<6;i++){
+    var a=Math.PI/180*(60*i+30); 
+    var x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+}
+
+// ── 노드 데이터 ─────────────────────────
+var ND=[
+  // 허브 노드는 렌더링되지 않도록 invisible 속성 추가
+  {id:"hub",label:"",p:"hub",r:1,invisible:true,desc:"",pts:[],rel:[]},
+
+  // O&M 
+  {id:"om0",label:"\ubcf4\uc804/O&M",p:"om",r:28,pillar:true,
+   desc:"\uc124\ube44 \uc6b4\uc601\u00b7\uc720\uc9c0\ubcf4\uc218\uc5d0\uc11c AI \uc790\uc728\uc81c\uc870\uae4c\uc9c0 \uc804\uc8fc\uae30 O&M \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",
+   pts:["\uc124\ube44 \ub3c4\uba54\uc778 \uc9c0\uc2dd","AI \uc608\uc9c0\uc815\ube44","\uc804\uc8fc\uae30 \ud1a0\ud0c8"],rel:[]},
+  {id:"om1",label:"\uc124\ube44\n\uc608\uc9c0\uc815\ube44",p:"om",r:16,desc:"AI \uc13c\uc11c\u00b7\ub370\uc774\ud130 \uae30\ubc18 \uc124\ube44 \uc774\uc0c1 \uc608\uce21 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["AI \uc774\uc0c1 \uc9c4\ub2e8","\uc218\uba85 \uc608\uce21","\uc2e4\uc2dc\uac04 \uc13c\uc11c"],rel:["dt9","dt10","om10"]},
+  {id:"om2",label:"\uc2a4\ub9c8\ud2b8\n\ud329\ud1a0\ub9ac",p:"om",r:16,desc:"AI \uae30\ubc18 \uc2a4\ub9c8\ud2b8 \ud329\ud1a0\ub9ac \uad6c\ucd95 \uc5ed\ub7c9\uc744 \uac16\ucd94\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\uc0dd\uc0b0 \ubaa8\ub2c8\ud130\ub9c1","\uc790\ub3d9\ud654 \ub77c\uc778","OEE \ucd5c\uc801\ud654"],rel:["dt9","dt10","epc5"]},
+  {id:"om3",label:"O&M\nTotal",p:"om",r:16,desc:"\uc804\uc8fc\uae30 \ud1a0\ud0c8 \uc11c\ube44\uc2a4\ub97c \uc81c\uacf5\ud569\ub2c8\ub2e4.",pts:["\uc608\ubc29\uc815\ube44","24/7 \ub300\uc751","\uc124\ube44 \uc774\ub825"],rel:["epc6"]},
+  {id:"om4",label:"\uc124\ube44\n\ub9ac\ud37c\ube44\uc2dc",p:"om",r:15,desc:"\ub178\ud6c4 \uc124\ube44\ub97c \uc7ac\uc0dd\u00b7\uc7ac\ud310\ub9e4\ud558\ub294 \ud50c\ub7ab\ud3fc \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uc815\ubc00 \uc9c4\ub2e8","\uae30\ub2a5 \ubcf5\uc6d0","\uc7ac\ud310\ub9e4 \ud488\uc9c8"],rel:["epc1","dt3"]},
+  {id:"om5",label:"Roll-to-Roll\n\uacf5\uc815",p:"om",r:17,desc:"\uc815\ubc00 \uc7a5\ub825 \uc81c\uc5b4\uc640 \uace0\ub09c\ub3c5 \ud544\ub984 \uacf5\uc815 \uc548\uc815\ud654 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uc815\ubc00 \uc7a5\ub825 \uc81c\uc5b4","\ud544\ub984 \uacf5\uc815 \uc548\uc815\ud654","\uc5f0\uc18d \uc6b4\uc804 \ud488\uc9c8"],rel:["epc1","dt5"]},
+  {id:"om6",label:"\uc5d0\ub108\uc9c0\n\uc9c4\ub2e8",p:"om",r:14,desc:"\uacf5\uc7a5\u00b7\uac74\ucd95\ubb3c \uc5d0\ub108\uc9c0 \uc9c4\ub2e8 \ubc0f \uc808\uac10 \ucee8\uc124\ud305 \uc11c\ube44\uc2a4\ub97c \uc81c\uacf5\ud569\ub2c8\ub2e4.",pts:["\ud328\ud134 \ubd84\uc11d","\uc808\uac10 \uc2dc\uc2a4\ud15c","\uc815\ubd80 \uc5f0\uacc4"],rel:["epc9"]},
+  {id:"om7",label:"\uac74\ucd95\ubb3c FM",p:"om",r:14,desc:"\uc885\ud569\uac74\uc124\uc5c5 \uba74\ud5c8 \uae30\ubc18 FM \uc815\uae30 \uacc4\uc57d \uc11c\ube44\uc2a4\ub97c \uc6b4\uc601\ud569\ub2c8\ub2e4.",pts:["\uc885\ud569\uac74\uc124\ub825 \uba74\ud5c8","\uc815\uae30 \uacc4\uc57d","\uc2dc\uc124 \ucd5c\uc801\ud654"],rel:["epc7"]},
+  {id:"om8",label:"AI\n\uc790\uc728\uc81c\uc870",p:"om",r:18,desc:"AI \uae30\ubc18 \uc644\uc804 \uc790\uc728\uc81c\uc870 \uacf5\uc7a5 \uad6c\ud604 \uc5ed\ub7c9\uc744 \uac1c\ubc1c\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\uc790\uc728 \uc758\uc0ac\uacb0\uc815","\ubb34\uc778 \uc0dd\uc0b0","\uae00\ub85c\ubc8c \uc788\uc5f4"],rel:["dt8","dt10","dt9"]},
+  {id:"om9",label:"Lab Auto",p:"om",r:14,desc:"\uc2e4\ud5d8\uc2e4 \uc790\ub3d9\ud654 \uc2dc\uc2a4\ud15c \uad6c\ucd95 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uc2e4\ud5d8 \uc790\ub3d9\ud654","\ub370\uc774\ud130 \ud1b5\ud569","\ud654\ud559\u00b7\uc18c\uc7ac"],rel:["dt1","dt10","dt13"]},
+  {id:"om10",label:"\uc124\ube44\n\ub370\uc774\ud130",p:"om",r:14,desc:"\ud604\uc7a5 \uc124\ube44 \ub370\uc774\ud130\ub97c \uccb4\uacc4\uc801\uc73c\ub85c \uc218\uc9d1\u00b7\uad00\ub9ac\ud558\ub294 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["IoT \uc13c\uc11c","\ub370\uc774\ud130 \ud30c\uc774\ud504\ub77c\uc778","\uc774\ub825 \ubd84\uc11d"],rel:["dt9","dt10","om1"]},
+  {id:"om11",label:"\uacf5\uc815\n\ubaa8\ub2c8\ud130\ub9c1",p:"om",r:14,desc:"\uacf5\uc815 \uc774\uc0c1\uc744 \uc2e4\uc2dc\uac04\uc73c\ub85c \uac10\uc9c0\ud558\uace0 \ub300\uc751\ud558\ub294 \uccb4\uacc4\ub97c \uc6b4\uc601\ud569\ub2c8\ub2e4.",pts:["\uc2e4\uc2dc\uac04 \uc2dc\uac01\ud654","\uc774\uc0c1 \uc54c\ub9bc","\uc6d0\uaca9 \ubaa8\ub2c8\ud130\ub9c1"],rel:["epc8","dt10"]},
+  {id:"om12",label:"\uc124\ube44\n\uc218\uba85\uad00\ub9ac",p:"om",r:14,desc:"\uc124\ube44\uc758 \uc804\uc8fc\uae30 \uc218\uba85 \uad00\ub9ac \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uc218\uba85 \uc608\uce21","\uad50\uccb4 \uc8fc\uae30","\uc815\ube44\uacc4\ud68d"],rel:["om1","dt9"]},
+  {id:"om13",label:"\uc720\ud2f8\ub9ac\ud2f0\n\uc6b4\uc601",p:"om",r:15,desc:"AI \uae30\ubc18 \uc720\ud2f8\ub9ac\ud2f0 \uc6b4\uc601 \uc194\ub8e8\uc158\uc73c\ub85c \uc6b4\uc804 \ud328\ud134\uacfc \ub370\uc774\ud130\ub97c \uc2e4\uc2dc\uac04 \ubd84\uc11d\ud574 \uc774\uc0c1 \uc9d5\ud6c4\ub97c \uac10\uc9c0\ud569\ub2c8\ub2e4.",pts:["AI \uc6b4\uc804 \ubd84\uc11d","\uc720\ud2f8\ub9ac\ud2f0 \uc548\uc815\ud654","\uacf5\uae09\ub9dd \uad00\ub9ac"],rel:["om10","dt10"]},
+  {id:"om14",label:"\ubb3c\ub958\u00b7\uc81c\uc870\n\uc790\ub3d9\ud654",p:"om",r:15,desc:"\uc81c\uc870/\ubb3c\ub958 \uc790\ub3d9\ud654\ub97c \ud1b5\ud574 \uacf5\uc815 \ud750\ub984\uc744 \ucd5c\uc801\ud654\ud569\ub2c8\ub2e4.",pts:["\uc790\ub3d9 \uc774\uc1a1","\uacf5\uc815 \uc5f0\uacc4","\uc778\ub825 \uc758\uc874\ub3c4 \uac10\uc18c"],rel:["om2","epc6","dt10"]},
+  // 향후 확장을 위한 빈 버블
+  {id:"om15",label:"",p:"om",r:13,empty:true,pts:[],rel:[]},
+  {id:"om16",label:"",p:"om",r:13,empty:true,pts:[],rel:[]},
+
+  // EPC 
+  {id:"epc0",label:"EPC",p:"epc",r:28,pillar:true,
+   desc:"\uc124\uacc4\u00b7\uc870\ub2ec\u00b7\uc2dc\uacf5 \uc804 \ub2e8\uacc4 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud558\uba70 \uc6d0\uc2a4\ud1b1 \uc194\ub8e8\uc158\uc744 \uc81c\uacf5\ud569\ub2c8\ub2e4.",
+   pts:["\ud50c\ub79c\ud2b8 \uc804\uc8fc\uae30 \uc124\uacc4","\uae00\ub85c\ubc8c \uc18c\uc2f1","\ud488\uc9c8\u00b7\uc548\uc804 \uad00\ub9ac"],rel:[]},
+  {id:"epc1",label:"Plant\nEng",p:"epc",r:16,desc:"\ud50c\ub79c\ud2b8 \uae30\ubcf8\u00b7\uc0c1\uc138 \uc124\uacc4 \uc5ed\ub7c9\uc744 \uac16\ucd94\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\uacf5\uc815 \uc124\uacc4","P&ID","3D \ubaa8\ub378\ub9c1"],rel:["dt2","om4","dt3"]},
+  {id:"epc2",label:"\uc870\ub2ec\n\uad00\ub9ac",p:"epc",r:15,desc:"\uad6d\ub0b4\uc678 \uacf5\uae09\ub9dd \uad6c\ucd95 \ubc0f \uc790\uc7ac\u00b7\uc7a5\ube44 \uc870\ub2ec \uad00\ub9ac \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uae00\ub85c\ubc8c \uc18c\uc2f1","LCC \ud611\uc5c5","\ub0a9\uae30 \ud1b5\ud569"],rel:["epc10"]},
+  {id:"epc3",label:"\uc2dc\uacf5\u00b7\n\uac74\uc124",p:"epc",r:15,desc:"EPC \uc2dc\uacf5 \ud604\uc7a5 \uad00\ub9ac \ubc0f \ud488\uc9c8\u00b7\uacf5\uc815\u00b7\uc548\uc804 \ud1b5\ud569 \uad00\ub9ac \ub2a5\ub825\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ud488\uc9c8 \uad00\ub9ac","HSE \uc548\uc804","\uc2dc\uc6b4\uc804"],rel:["epc4","om3"]},
+  {id:"epc4",label:"\uc548\uc804\uc124\uacc4\nDfS",p:"epc",r:15,desc:"Design for Safety \uccb4\uacc4\ub97c \uc6b4\uc601\ud569\ub2c8\ub2e4.",pts:["\uc704\ud5d8\uc131 \ud3c9\uac00","\uc548\uc804 \uae30\uc900","DfS \uc778\uc99d"],rel:["epc8","epc3"]},
+  {id:"epc5",label:"AI \uc124\uacc4\n\uc790\ub3d9\ud654",p:"epc",r:15,desc:"AI\ub97c \ud65c\uc6a9\ud55c \uc124\uacc4 \uc790\ub3d9\ud654 \ubc0f \ub514\uc9c0\ud138 \ud2b8\uc708 \uad6c\ud604 \uc5ed\ub7c9\uc744 \uac16\ucd94\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["AI \uc790\ub3d9\ud654","\ub514\uc9c0\ud138 \ud2b8\uc708","\uc624\ub958 \uc81c\ub85c\ud654"],rel:["dt9","dt3","om2"]},
+  {id:"epc6",label:"EPC\n+O&M",p:"epc",r:17,desc:"EPC \uc124\uacc4\u00b7\uc2dc\uacf5\uc5d0\uc11c \uc6b4\uc601\u00b7\uc720\uc9c0\ubcf4\uc218\uae4c\uc9c0 \uc6d0\uc2a4\ud1b1 \ud1b5\ud569 \uc11c\ube44\uc2a4\ub97c \uc81c\uacf5\ud569\ub2c8\ub2e4.",pts:["\uc124\uacc4~\uc6b4\uc601","TCO \ucd5c\uc18c\ud654","O&M \uc5f0\uacc4"],rel:["om3","om0"]},
+  {id:"epc7",label:"\uc778\ud5c8\uac00",p:"epc",r:13,desc:"\uc885\ud569\uac74\uc124\uc5c5 \uba74\ud5c8\ub97c \ud3ec\ud568\ud55c \uc778\ud5c8\uac00 \ud504\ub85c\uc138\uc2a4 \uc804\ubb38\uc131\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uc885\ud569\uac74\uc124\ub825","\uc778\ud5c8\uac00 \uc804\ubb38\ud654","\uaddc\uc81c \ub300\uc751"],rel:["om7"]},
+  {id:"epc8",label:"\uac00\uc2a4\u00b7\ub204\uc561\n\uac10\uc9c0",p:"epc",r:14,desc:"\uacf5\uc7a5 \ub0b4 \uac00\uc2a4 \ubc0f \uc561\uccb4 \ub204\ucd9c \uac10\uc9c0 \uc2dc\uc2a4\ud15c \uad6c\ucd95\u00b7\uc6b4\uc601 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\uac00\uc2a4 \uac10\uc9c0","\ub204\uc561 \uc790\ub3d9\ud654","\uc548\uc804 \ubaa8\ub2c8\ud130\ub9c1"],rel:["epc4","om11"]},
+  {id:"epc9",label:"\uc2e0\uc7ac\uc0dd\nEPC",p:"epc",r:13,desc:"\ud0dc\uc591\uad11\u00b7\ud48d\ub825 EPC \uc0ac\uc5c5 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ud0dc\uc591\uad11\u00b7\ud48d\ub825","\uc815\ubd80 \uc5f0\uacc4","ESS \uc124\uacc4"],rel:["om6","dt7"]},
+  {id:"epc10",label:"\ucee8\uc18c\uc2dc\uc5c4",p:"epc",r:13,desc:"\ud0c0 EPC\uc0ac\uc640 \ucee8\uc18c\uc2dc\uc5c4 \uad6c\uc131\uc73c\ub85c \ub300\ud615 \ud504\ub85c\uc81d\ud2b8\uc5d0 \ucc38\uc5ec\ud569\ub2c8\ub2e4.",pts:["\ub300\ud615 \ud504\ub85c\uc81d\ud2b8","\ud30c\ud2b8\ub108 \ub124\ud2b8\uc6cc\ud06c","\ub9ac\uc2a4\ud06c \ubd84\uc0b0"],rel:["epc2"]},
+  {id:"epc11",label:"\uccca\ub2e8\uc18c\uc7ac\n\ud50c\ub79c\ud2b8",p:"epc",r:16,desc:"\ub9ac\ud29c\uc5c4 \ub9ac\uc0ac\uc774\ud074\ub9c1, \uad11\ud559\ud544\ub984, CCL \ub4f1 \uccca\ub2e8\uc18c\uc7ac \ud50c\ub79c\ud2b8\ub97c \uad6c\ucd95\ud569\ub2c8\ub2e4.",pts:["\ub9ac\ud29c\uc5c4 \ub9ac\uc0ac\uc774\ud074\ub9c1","\uad11\ud559\ud544\ub984 \uc124\ube44","CCL\u00b7\uc591\uadf9\uc7ac"],rel:["epc1","dt5","om5"]},
+  {id:"epc12",label:"Integrated\nEPC",p:"epc",r:15,desc:"Fast-Track, Turnkey, Customization \ubc29\uc2dd\uc758 \uc720\uc5f0\ud55c \ud1b5\ud569 EPC \uc218\ud589 \ubbc3\ub825\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["Fast-Track","Turnkey","Customization"],rel:["epc3","epc6"]},
+  {id:"epc13",label:"BIM\n\uc124\uacc4",p:"epc",r:13,desc:"BIM \uae30\ubc18 \uc2a4\ub9c8\ud2b8 \uc124\uacc4 \uc5ed\ub7c9\uc744 \uac16\ucd94\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["BIM 3D","\uac04\uc12d \uccb4\ud06c","\uc124\uacc4-\uc2dc\uacf5"],rel:["epc5","dt9"]},
+  {id:"epc14",label:"\ud574\uc678\n\uae30\uc220\uc6a9\uc5ed",p:"epc",r:13,desc:"\ud574\uc678 \uc0dd\uc0b0 Site \uae30\uc220\uc9c0\uc6d0 \ubc0f \ud574\uc678 EPC \uae30\uc220 \uc6a9\uc5ed \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ud574\uc678 \uae30\uc220\uc9c0\uc6d0","\ud574\uc678 EPC","\uae00\ub85c\ubc8c \ud30c\ud2b8\ub108"],rel:["epc10","epc12"]},
+  // 향후 확장을 위한 빈 버블
+  {id:"epc15",label:"",p:"epc",r:13,empty:true,pts:[],rel:[]},
+  {id:"epc16",label:"",p:"epc",r:13,empty:true,pts:[],rel:[]},
+
+  // Deep-Tech 
+  {id:"dt0",label:"Deep-Tech",p:"dt",r:28,pillar:true,
+   desc:"\uae30\uc5c5\ubd80\uc124\uc5f0\uad6c\uc18c\ub97c \uae30\ubc18\uc73c\ub85c \ub3c5\uc790\uc801 R&D \uc5ed\ub7c9\uacfc IP \ud3ec\ud2b8\ud3f4\ub9ac\uc624\ub97c \ubcf4\uc720\ud569\ub2c8\ub2e4.",
+   pts:["\uae30\uc5c5\ubd80\uc124\uc5f0\uad6c\uc18c","\ud575\uc2ec \ud2b9\ud5c8","AI \uc81c\uc870 \ubc29\ubc95\ub860"],rel:[]},
+  {id:"dt1",label:"\uae30\uc5c5\ubd80\uc124\n\uc5f0\uad6c\uc18c",p:"dt",r:16,desc:"\uae30\uc5c5\ubd80\uc124\uc5f0\uad6c\uc18c\ub97c \uc6b4\uc601\ud558\uba70 \uccb4\uacc4\uc801\uc778 R&D \uc5ed\ub7c9\uc744 \uac16\ucd94\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\uc5f0\uad6c\uc18c \uc6b4\uc601","R&D \uc138\uc81c","\uc5f0\uad6c\uc778\ub825"],rel:["om9","dt7"]},
+  {id:"dt2",label:"OLED\n\uacf5\uc815",p:"dt",r:15,desc:"OLED \uc2b9\ud654\uacf5\uc815 \uc778\ub77c\uc778 \uc790\ub3d9\ud654 \uc2dc\uc2a4\ud15c \uac1c\ubc1c \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["OLED \uc2b9\ud654\uacf5\uc815","\uc778\ub77c\uc778 \uc790\ub3d9\ud654","\uacf5\uc815 \ucd5c\uc801\ud654"],rel:["epc1","dt5"]},
+  {id:"dt3",label:"\uc124\ube44\u00b7\uae30\uc220\n\ud2b9\ud5c8",p:"dt",r:16,desc:"\ud575\uc2ec \uae30\uc220 \ud2b9\ud5c8 \ucd9c\uc6d0 \ubc0f IP \ud3ec\ud2b8\ud3f4\ub9ac\uc624\ub97c \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ud2b9\ud5c8 \ucd9c\uc6d0","IP \ud3ec\ud2b8\ud3f4\ub9ac\uc624","\uae30\uc220 \uc0ac\uc5c5\ud654"],rel:["epc5","om4"]},
+  {id:"dt4",label:"Back-end\n\ud30c\uc6b4\ub4dc\ub9ac",p:"dt",r:15,desc:"\ubc18\ub3c4\uccb4 \ud6c4\uacf5\uc815 \ud30c\uc6b4\ub4dc\ub9ac \uc0ac\uc5c5 \uc5ed\ub7c9\uc744 \uac16\ucd94\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\ud6c4\uacf5\uc815 \uae30\uc220","\ud30c\uc6b4\ub4dc\ub9ac \ud30c\ud2b8\ub108","\ud31d\ub9ac\uc2a4"],rel:["epc1","dt5"]},
+  {id:"dt5",label:"\uc18c\uc7ac\u00b7\uacf5\uc815\n\uae30\uc220",p:"dt",r:16,desc:"MRTL, LFP, \uad11\ud559\ud544\ub984, \uc720\ub9ac\uae30\ud310, CCL \ub4f1 \uccca\ub2e8\uc18c\uc7ac \uacf5\uc815 \uae30\uc220 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["MRTL\u00b7LFP","\ub9ac\ud29c\uc5c4 \ub9ac\uc0ac\uc774\ud074\ub9c1","\uc720\ub9ac\uae30\ud310\u00b7CCL"],rel:["om5","dt2","dt4","epc11"]},
+  {id:"dt6",label:"AI Color\n\uac1c\ubc1c",p:"dt",r:16,desc:"\uc5d4\uc9c0\ub2c8\uc5b4\ub9c1 \ud50c\ub77c\uc2a4\ud2f1 \ucf5c\ub7ec \uac1c\ubc1c \uacf5\uc815\uc744 AI \uae30\ubc18\uc73c\ub85c \uc804\ud658\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\ucf5c\ub7ec AI \uc608\uce21","\uacf5\uc815 \uc790\ub3d9\ud654","\uc0c9\uc0c1 \ud488\uc9c8"],rel:["dt10","dt3"]},
+  {id:"dt7",label:"\uc0b0\ud559\u00b7\n\uc678\ubd80\ud611\ub825",p:"dt",r:13,desc:"\ub300\ud559\u00b7\uc5f0\uad6c\uae30\uad00\u00b7\uc9c0\uc790\uccb4\uc640 R&D \ud611\ub825 \ub124\ud2b8\uc6cc\ud06c\ub97c \uad6c\ucd95\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4.",pts:["\uacf5\ub3d9 \uc5f0\uad6c\uac1c\ubc1c","\uc9c0\uc790\uccb4 \ud30c\ud2b8\ub108","\uc815\ubd80 \uacfc\uc81c"],rel:["dt1","epc9"]},
+  {id:"dt8",label:"Dark\nFactory",p:"dt",r:18,desc:"\uc644\uc804 \uc790\uc728\ud654\u00b7\ubb34\uc778\ud654 \uacf5\uc7a5 \uad6c\ud604\uc744 \uc704\ud55c \ud1b5\ud569 \ud50c\ub7ab\ud3fc \uae30\uc220\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ubb34\uc778\ud654 \ud50c\ub7ab\ud3fc","\uae00\ub85c\ubc8c \uc788\uc5f4","\ud574\uc678 \uc2dc\uc7a5"],rel:["om8","dt9","dt10"]},
+  {id:"dt9",label:"\ub514\uc9c0\ud138\n\ud2b8\uc708",p:"dt",r:15,desc:"\ubb3c\ub9ac \uc124\ube44\uc640 \ub3d9\uae30\ud654\ub41c \ub514\uc9c0\ud138 \ud2b8\uc708 \ubaa8\ub378 \uad6c\ucd95 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ub514\uc9c0\ud138 \ubcf5\uc81c","\uc2e4\uc2dc\uac04 \ub3d9\uae30\ud654","\uc2dc\ubbac\ub808\uc774\uc158"],rel:["om2","om1","epc5","dt8"]},
+  {id:"dt10",label:"AI \uacf5\uc815\n\ucd5c\uc801\ud654",p:"dt",r:15,desc:"AI \uc54c\uace0\ub9ac\uc998\uc744 \ud65c\uc6a9\ud55c \uc81c\uc870 \uacf5\uc815 \ud30c\ub77c\ubbf8\ud130 \ucd5c\uc801\ud654 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ud30c\ub77c\ubbf8\ud130 \uc870\uc815","\uc218\uc728 \ud5a5\uc0c1","\uc774\uc0c1 \uac10\uc9c0"],rel:["om2","om8","dt9","dt6"]},
+  {id:"dt11",label:"R&D\n\ub85c\ub4dc\ub9f5",p:"dt",r:13,desc:"\uc911\uc7a5\uae30 R&D \ubc29\ud5a5\uc131\uacfc \uae30\uc220 \ub85c\ub4dc\ub9f5\uc744 \uccb4\uacc4\uc801\uc73c\ub85c \uc218\ub9bd\u00b7\uc6b4\uc601\ud569\ub2c8\ub2e4.",pts:["\uae30\uc220 \ud2b8\ub80c\ub4dc","R&D \uc6b0\uc120\uc21c\uc704","\ub9c8\uc77c\uc2a4\ud1b4"],rel:["dt1","dt7"]},
+  {id:"dt12",label:"IP \uc804\ub7b5",p:"dt",r:13,desc:"IP \uc804\ub7b5 \uc218\ub9bd \ubc0f \ud3ec\ud2b8\ud3f4\ub9ac\uc624 \uad00\ub9ac \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["\ud3ec\ud2b8\ud3f4\ub9ac\uc624","IP \ub9ac\uc2a4\ud06c","\uae30\uc220\uc774\uc804"],rel:["dt3","dt11"]},
+  {id:"dt13",label:"Autonomous\nLab",p:"dt",r:16,desc:"\uc2e4\ud5d8 \uc124\uacc4, \uc2e4\ud589, \ubd84\uc11d, \ucd5c\uc801\ud654 \uacfc\uc815\uc744 \ud558\ub098\uc758 \uc9c0\ub2a5\ud615 \uc2dc\uc2a4\ud15c\uc73c\ub85c \ud1b5\ud569\ud55c \ucc28\uc138\ub300 R&D \ud50c\ub7ab\ud3fc\uc785\ub2c8\ub2e4.",pts:["AI \uc2e4\ud5d8 \uc124\uacc4","\ub85c\ubd07 \uc790\ub3d9\ud654","\ub370\uc774\ud130 \uae30\ubc18 \ud601\uc2e0"],rel:["om9","dt1","dt10"]},
+  {id:"dt14",label:"Pilot &\nScale-up",p:"dt",r:16,desc:"Lab Scale \uc131\uacfc\ub97c \uc591\uc0b0 \uacbd\uc7c1\ub825\uc73c\ub85c \uc644\uc131\ud558\ub294 \uacf5\uc815 \uc5d4\uc9c0\ub2c8\uc5b4\ub9c1 \uc5ed\ub7c9\uc744 \ubcf4\uc720\ud569\ub2c8\ub2e4.",pts:["Lab \u2192 Pilot","\uc591\uc0b0 Scale-up","\uc218\uc728\u00b7\uc7ac\ud604\uc131"],rel:["dt1","dt5","dt10","dt13"]},
+  // 향후 확장을 위한 빈 버블
+  {id:"dt15",label:"",p:"dt",r:13,empty:true,pts:[],rel:[]},
+  {id:"dt16",label:"",p:"dt",r:13,empty:true,pts:[],rel:[]}
+];
+
+// 전체 헥사곤 크기 대폭 확대 (1.45배 -> 1.6배)
+ND.forEach(function(n) { n.r *= 1.6; });
+
+var EDGES=[];
+// 허브를 안보이게 처리했지만, 3개의 축이 묶여있도록 연결선은 데이터로만 유지(화면에 그리지 않음)
+["om0","epc0","dt0"].forEach(function(t){EDGES.push({s:"hub",t:t,w:3});});
+
+var SG={
+  om0:["om1","om2","om3","om4","om5","om6","om7","om8","om9","om10","om11","om12","om13","om14","om15","om16"],
+  epc0:["epc1","epc2","epc3","epc4","epc5","epc6","epc7","epc8","epc9","epc10","epc11","epc12","epc13","epc14","epc15","epc16"],
+  dt0:["dt1","dt2","dt3","dt4","dt5","dt6","dt7","dt8","dt9","dt10","dt11","dt12","dt13","dt14","dt15","dt16"]
+};
+Object.keys(SG).forEach(function(p){
+  SG[p].forEach(function(t){EDGES.push({s:p,t:t,w:1.2});});
+});
+var xSet={};
+ND.forEach(function(n){
+  (n.rel||[]).forEach(function(rid){
+    var key=[n.id,rid].sort().join("|");
+    if(!xSet[key]){xSet[key]=true;EDGES.push({s:n.id,t:rid,x:true});}
+  });
+});
+
+// ── CANVAS ───────────────────────────────────────────────
+var canvas=document.getElementById("c");
+var ctx=canvas.getContext("2d");
+var gw=document.getElementById("gwrap");
+var W,H,DPR=window.devicePixelRatio||1;
+var NM={};
+ND.forEach(function(n){NM[n.id]=n;n.vx=0;n.vy=0;n.sc=1;n.tsc=1;});
+
+function resize(){
+  W=gw.clientWidth;H=gw.clientHeight;
+  canvas.width=W*DPR;canvas.height=H*DPR;
+}
+
+function initPos(){
+  var cx=W/2,cy=H/2;
+  var Rp=Math.min(W,H)*.2, Rs=Math.min(W,H)*.38;
+  NM.hub.x=cx;NM.hub.y=cy;
+  var pk=["om0","epc0","dt0"],pa=[-90,30,150];
+  pk.forEach(function(k,i){
+    var a=pa[i]*Math.PI/180;
+    NM[k].x=cx+Rp*Math.cos(a);NM[k].y=cy+Rp*Math.sin(a);NM[k].vx=0;NM[k].vy=0;
+  });
+  pk.forEach(function(p,pi){
+    var ba=pa[pi]*Math.PI/180,sp=105*Math.PI/180,kids=SG[p];
+    kids.forEach(function(s,j){
+      var a=ba-sp/2+j*sp/(kids.length-1);
+      NM[s].x=cx+Rs*Math.cos(a);NM[s].y=cy+Rs*Math.sin(a);
+      NM[s].vx=(Math.random()-.5)*1.5;NM[s].vy=(Math.random()-.5)*1.5;
+    });
+  });
+  
+  // 리사이즈 시 화면 중앙 정렬 초기화
+  trans.x = 0; trans.y = 0; trans.k = 1;
+}
+
+var ticks=0;
+function sim(){
+  var K=.028,REP=1800,DAMP=.75; // 3축이 너무 밀어내지 않게 반발력 축소
+  for(var i=0;i<ND.length;i++){
+    for(var j=i+1;j<ND.length;j++){
+      var a=ND[i],b=ND[j];
+      if(a.invisible || b.invisible) continue; // 투명 허브는 반발력 계산 제외
+      var dx=b.x-a.x,dy=b.y-a.y,d2=dx*dx+dy*dy+1,d=Math.sqrt(d2);
+      var minD=(a.r+b.r)*1.18;
+      var f=d<minD?(REP*2)/d2:REP/d2;
+      a.vx-=f*dx/d;a.vy-=f*dy/d;b.vx+=f*dx/d;b.vy+=f*dy/d;
+    }
+  }
+  EDGES.forEach(function(e){
+    var a=NM[e.s],b=NM[e.t];if(!a||!b)return;
+    var dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy)+.01;
+    
+    // 3개의 기둥이 허브쪽으로 쫀쫀하게 당겨지도록 타겟 거리(td) 대폭 축소
+    var td=e.x?150:70;
+    if(a.id==="hub" || b.id==="hub") td = 30; 
+    else if(a.pillar||b.pillar) td*=1.3;
+    
+    var f=(d-td)*K*(e.x?.4:1);
+    a.vx+=f*dx/d;a.vy+=f*dy/d;b.vx-=f*dx/d;b.vy-=f*dy/d;
+  });
+  ND.forEach(function(n){
+    if(n.invisible) { n.x=W/2; n.y=H/2; return; } // 보이지 않는 중심은 고정
+    n.vx+=(W/2-n.x)*.002;n.vy+=(H/2-n.y)*.002;
+    n.vx*=DAMP;n.vy*=DAMP;
+    n.x+=n.vx;n.y+=n.vy;
+    n.sc+=(n.tsc-n.sc)*.18;
+  });
+}
+
+var filter="all",hov=null,sel=null;
+
+function vis(n){if(filter==="all")return true;if(n.invisible)return false;return n.p===filter||n.id===filter+"0";}
+function isConn(n){
+  var ref=sel||hov;if(!ref)return false;if(n===ref)return true;
+  return EDGES.some(function(e){return(e.s===ref.id&&e.t===n.id)||(e.t===ref.id&&e.s===n.id);});
+}
+
+function drawLabel(n,r,col){
+  if(n.empty || n.invisible) return; // 빈 버블, 투명 허브 라벨 생략
+  var lbl=n.label;
+  var lines=lbl.indexOf("\n")>-1?lbl.split("\n"):
+    (lbl.indexOf(" ")>-1?lbl.split(" "):
+    (lbl.length>6?[lbl.slice(0,Math.ceil(lbl.length/2)),lbl.slice(Math.ceil(lbl.length/2))]:[lbl]));
+  var maxLen=0;
+  lines.forEach(function(l){if(l.length>maxLen)maxLen=l.length;});
+  var fw=r*1.62/Math.max(maxLen,1);
+  var fs=Math.min(Math.max(10,fw*1.0),r*.6);
+  ctx.fillStyle=col;
+  ctx.font="700 "+Math.round(fs)+"px 'MICEGothic','Apple SD Gothic Neo',sans-serif";
+  ctx.textAlign="center";ctx.textBaseline="middle";
+  var lh=fs*1.2;
+  lines.forEach(function(l,i){
+    ctx.fillText(l,n.x,n.y+(i-(lines.length-1)/2)*lh);
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  
+  // 화면 전체 스케일 및 패닝 적용
+  ctx.save();
+  ctx.scale(DPR, DPR); // 레티나 대응
+  
+  // 배경 그리드는 변환 전에 그려서 항상 화면을 덮도록
+  ctx.fillStyle="#111a28";
+  for(var x=18;x<W;x+=22){for(var y=18;y<H;y+=22){
+    ctx.beginPath();ctx.arc(x,y,.8,0,Math.PI*2);ctx.fill();
+  }}
+
+  // 카메라(줌/패닝) 이동 적용
+  ctx.translate(trans.x, trans.y);
+  ctx.scale(trans.k, trans.k);
+
+  // 허브가 사라졌으므로 배경 도넛 하이라이트는 그리지 않습니다.
+
+  var ref=sel||hov;
+  EDGES.forEach(function(e){
+    var a=NM[e.s],b=NM[e.t];if(!a||!b)return;
+    if(a.invisible || b.invisible) return; // 허브와 연결된 선은 렌더링 생략
+    var va=vis(a),vb=vis(b);if(!va&&!vb)return;
+    var inv=ref&&(e.s===ref.id||e.t===ref.id);
+    var alpha,lw,sc;
+    
+    if(e.x){
+      alpha=(va&&vb)?(inv?.9:.4):.1;
+      lw=inv?2.5:1.5;
+      sc=COL[a.p];
+    } else {
+      if(ref){alpha=inv?.85:.15;lw=inv?2.5:1.0;}
+      else{alpha=(va&&vb)?.5:.1;lw=1.5;}
+      sc=COL[a.p];
+    }
+    
+    ctx.save();ctx.globalAlpha=alpha;
+    ctx.strokeStyle=e.x?(inv?sc:"#6ba8d1"):sc;
+    ctx.lineWidth=lw;
+    if(e.x){ctx.setLineDash([5,5]);}else{ctx.setLineDash([]);}
+    ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    ctx.restore();
+  });
+
+  ND.forEach(function(n){
+    if(n.invisible) return; // 허브 렌더링 생략
+    var isV=vis(n),isH=n===hov,isS=n===sel,conn=isConn(n);
+    var col=COL[n.p],colD=COLD[n.p],colG=COLG[n.p];
+    var r=n.r*n.sc;
+    var ga=isV?1:(filter==="all"?.06:.03);
+    if(isV&&ref&&!conn&&!isH&&!isS)ga=.18;
+    ctx.save();ctx.globalAlpha=ga;
+
+    if(n.pillar){
+      var gr2=ctx.createRadialGradient(n.x,n.y,r*.1,n.x,n.y,r*2.3);
+      gr2.addColorStop(0,col+"33");gr2.addColorStop(1,col+"00");
+      ctx.beginPath();ctx.arc(n.x,n.y,r*2.3,0,Math.PI*2);ctx.fillStyle=gr2;ctx.fill();
+      hexPath(ctx,n.x,n.y,r);
+      ctx.fillStyle=col;ctx.fill();
+      ctx.strokeStyle=isS||isH?"#fff":col;ctx.lineWidth=isS||isH?2.5:1.5;ctx.stroke();
+      ctx.fillStyle="#fff";
+      ctx.font="800 "+(r*.44)+"px 'MICEGothic','Apple SD Gothic Neo',sans-serif";
+      ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.label,n.x,n.y);
+    } else if(n.empty){
+      ctx.globalAlpha = isV ? 0.15 : 0.02;
+      hexPath(ctx,n.x,n.y,r);
+      ctx.fillStyle=colD;ctx.fill();
+      ctx.strokeStyle=col;ctx.lineWidth=0.8;
+      ctx.setLineDash([3,3]); // 비어있음을 암시하는 점선 테두리
+      ctx.stroke();
+    } else {
+      if(isH||isS||conn){
+        ctx.globalAlpha=ga*.4;
+        hexPath(ctx,n.x,n.y,r*1.4);
+        ctx.fillStyle=col+"20";ctx.fill();
+        ctx.globalAlpha=ga;
+      }
+      hexPath(ctx,n.x,n.y,r);
+      var gr3=ctx.createLinearGradient(n.x-r,n.y-r,n.x+r,n.y+r);
+      if(isH||isS){
+        gr3.addColorStop(0,colG);gr3.addColorStop(1,colD);
+      } else {
+        gr3.addColorStop(0,colD);gr3.addColorStop(1,"#0a0f18");
+      }
+      ctx.fillStyle=gr3;ctx.fill();
+      ctx.strokeStyle=col;ctx.lineWidth=isH||isS?2:conn?1.8:.9;
+      if(isH||isS){ctx.shadowColor=col;ctx.shadowBlur=8;}
+      ctx.stroke();ctx.shadowBlur=0;
+      drawLabel(n,r,isV?(isH||isS?"#fff":"#ccd8e8"):"#2a3a4a");
+    }
+    ctx.restore();
+  });
+  
+  ctx.restore(); // 카메라 변환 복구
+}
+
+// ── 상호작용 (Zoom, Pan, Hover, Click) ─────────────────────────────────────────────────
+
+// 마우스 이벤트 시 줌/이동이 적용된 캔버스 상의 실제 좌표 변환
+function getTransformedPoint(clientX, clientY) {
+  var rc = canvas.getBoundingClientRect();
+  var mx = clientX - rc.left;
+  var my = clientY - rc.top;
+  return {
+    x: (mx - trans.x) / trans.k,
+    y: (my - trans.y) / trans.k
+  };
+}
+
+// 휠 스크롤 - 줌 인/아웃
+canvas.addEventListener("wheel", function(e) {
+  e.preventDefault();
+  var zoomIntensity = 0.1;
+  var wheel = e.deltaY < 0 ? 1 : -1;
+  var zoomFactor = Math.exp(wheel * zoomIntensity);
+  
+  var rc = canvas.getBoundingClientRect();
+  var mx = e.clientX - rc.left;
+  var my = e.clientY - rc.top;
+
+  trans.x = mx - (mx - trans.x) * zoomFactor;
+  trans.y = my - (my - trans.y) * zoomFactor;
+  trans.k *= zoomFactor;
+  
+  // 줌 범위 제한 (0.3배 ~ 3배)
+  trans.k = Math.max(0.3, Math.min(trans.k, 3));
+});
+
+// 마우스 드래그 - 화면 이동(Panning)
+canvas.addEventListener("mousedown", function(e) {
+  // 노드를 클릭한 거라면 패닝하지 않음
+  if(hov && !hov.invisible && !hov.empty) return; 
+  
+  isDragging = true;
+  dragStart.x = e.clientX - trans.x;
+  dragStart.y = e.clientY - trans.y;
+});
+
+window.addEventListener("mouseup", function() {
+  isDragging = false;
+});
+
+canvas.addEventListener("mousemove", function(e) {
+  if (isDragging) {
+    trans.x = e.clientX - dragStart.x;
+    trans.y = e.clientY - dragStart.y;
+    canvas.style.cursor = "grabbing";
+    return;
+  }
+  
+  var pt = getTransformedPoint(e.clientX, e.clientY);
+  var prev = hov; hov = getNode(pt.x, pt.y);
+  
+  if(prev!==hov){
+    if(prev&&prev!==sel)prev.tsc=1;
+    if(hov)hov.tsc=hov===sel?1.22:1.35;
+  }
+  
+  if(hov && !hov.invisible && !hov.empty){
+    tip.style.display="block";
+    tip.style.left=(e.clientX+14)+"px";tip.style.top=(e.clientY-8)+"px";
+    tip.textContent=hov.label.replace("\n"," ");
+    canvas.style.cursor="pointer";
+  } else {
+    tip.style.display="none";
+    canvas.style.cursor="grab";
+  }
+});
+
+canvas.addEventListener("mouseleave", function(){
+  if(hov&&hov!==sel)hov.tsc=1;hov=null;tip.style.display="none";
+  isDragging = false;
+});
+
+var card=document.getElementById("card");
+function showCard(n, clientX, clientY){
+  if(!n||n.invisible||n.empty){hideCard();return;}
+  var col=COL[n.p],pl=PLAB[n.p];
+  document.getElementById("cstrip").style.background=col;
+  document.getElementById("cpil").textContent=pl?pl.l+" \u2014 "+pl.d:"";
+  document.getElementById("cpil").style.color=col;
+  document.getElementById("cttl").textContent=n.label.replace("\n"," ");
+  document.getElementById("cdesc").textContent=n.desc||"";
+  var ul=document.getElementById("cpts");ul.innerHTML="";
+  (n.pts||[]).forEach(function(p){
+    var li2=document.createElement("li");li2.textContent=p;
+    li2.style.setProperty("--bul",col);ul.appendChild(li2);
+  });
+  var relDiv=document.getElementById("crel"),relTags=document.getElementById("crtags");
+  relTags.innerHTML="";
+  var rels=(n.rel||[]).filter(function(id){return NM[id];});
+  if(rels.length>0){
+    rels.forEach(function(id){
+      var rn=NM[id];
+      if(!rn.empty && !rn.invisible) { 
+          var btn=document.createElement("button");
+          btn.className="crtag";btn.textContent=rn.label.replace("\n"," ");
+          btn.style.color=COL[rn.p];btn.style.borderColor=COLG[rn.p];
+          btn.style.background=COLD[rn.p];
+          btn.setAttribute("data-rid",id);relTags.appendChild(btn);
+      }
+    });
+    relDiv.style.display="block";
+  } else{relDiv.style.display="none";}
+  
+  var CW=266,CH=card.offsetHeight||240;
+  var cw=gw.clientWidth,ch=gw.clientHeight;
+  var rc = canvas.getBoundingClientRect();
+  
+  // 카드는 줌과 무관하게 화면상 마우스 클릭 위치에 띄웁니다.
+  var cx3 = (clientX - rc.left) + 16;
+  var cy3 = (clientY - rc.top) - CH/2;
+  
+  if(cx3+CW>cw-5)cx3=(clientX - rc.left)-CW-16;
+  if(cy3<5)cy3=5;if(cy3+CH>ch-5)cy3=ch-CH-5;
+  card.style.left=cx3+"px";card.style.top=cy3+"px";card.style.display="block";
+}
+
+function hideCard(){card.style.display="none";sel=null;ND.forEach(function(n){n.tsc=1;});}
+document.getElementById("cx").addEventListener("click",hideCard);
+document.getElementById("crtags").addEventListener("click",function(e){
+  var btn=e.target.closest(".crtag");if(!btn)return;
+  var n=NM[btn.getAttribute("data-rid")];if(!n)return;
+  if(sel&&sel!==n)sel.tsc=1;sel=n;n.tsc=1.22;
+  
+  // 태그 클릭 시 카드를 노드 근처로 이동 (화면 좌표 변환)
+  var rc = canvas.getBoundingClientRect();
+  var screenX = n.x * trans.k + trans.x + rc.left;
+  var screenY = n.y * trans.k + trans.y + rc.top;
+  showCard(n, screenX, screenY);
+});
+
+function getNode(x, y){
+  var best=null,bd=Infinity;
+  ND.forEach(function(n){
+    if(!vis(n) || n.empty || n.invisible) return; 
+    var d=Math.sqrt((x-n.x)*(x-n.x)+(y-n.y)*(y-n.y));
+    if(d<n.r*n.sc+5&&d<bd){best=n;bd=d;}
+  });
+  return best;
+}
+
+canvas.addEventListener("click",function(e){
+  var pt = getTransformedPoint(e.clientX, e.clientY);
+  var n=getNode(pt.x, pt.y);
+  if(sel&&sel!==n)sel.tsc=1;
+  if(!n){hideCard();return;}
+  sel=n;sel.tsc=1.22;showCard(n, e.clientX, e.clientY);
+});
+
+document.querySelectorAll(".fb").forEach(function(b){
+  b.addEventListener("click",function(){
+    filter=b.dataset.f;
+    document.querySelectorAll(".fb").forEach(function(x){
+      x.className="fb";if(x.dataset.f===filter)x.classList.add("a-"+filter);
+    });
+    hideCard();ticks=0;
+    // 필터 변경 시 줌 리셋
+    trans = {x:0, y:0, k:1};
+  });
+});
+
+setTimeout(function(){
+  document.getElementById("b1").style.width="20%";
+  document.getElementById("b2").style.width="85%";
+  document.getElementById("b3").style.width="55%";
+},600);
+
+function loop(){
+  if(ticks<300){sim();ticks++;}
+  else{ND.forEach(function(n){n.sc+=(n.tsc-n.sc)*.18;});}
+  draw();requestAnimationFrame(loop);
+}
+window.addEventListener("resize",function(){resize();initPos();ticks=0;hideCard();});
+resize();initPos();loop();
+
+</script>
+</body>
+</html>
