@@ -117,12 +117,16 @@ canvas:active{cursor:grabbing;}
   box-shadow:0 3px 12px rgba(0,0,0,.5);display:none;white-space:nowrap}
 
 @media (max-width: 768px) {
-  .hdr { flex-direction: column; height: auto; padding: 12px 10px; gap: 10px; }
+  .hdr { flex-direction: column; height: auto; padding: 10px 10px 8px; gap: 6px; }
   .hdr-mid { position: relative; left: 0; transform: none; }
   .filters { flex-wrap: wrap; justify-content: center; }
   .layout { flex-direction: column; }
-  .gwrap { flex: none; height: 60vh; }
-  .sb { width: 100%; height: 40vh; border-left: none; border-top: 1px solid var(--border); }
+  /* 기존엔 gwrap(60vh)+sb(40vh)=100vh 였는데, 헤더 높이가 별도로 더해져
+     전체 합이 100vh를 넘어가면서 body의 overflow:hidden에 하단이 잘렸음.
+     .layout은 이미 헤더를 제외한 나머지 공간(flex:1)을 정확히 차지하므로,
+     그 안에서는 vh가 아닌 flex 비율로 나눠서 실제 남은 공간 안에서만 분배되도록 함 */
+  .gwrap { flex: 1 1 0; height: auto; min-height: 0; }
+  .sb { flex: 1.15 1 0; height: auto; min-height: 0; width: 100%; border-left: none; border-top: 1px solid var(--border); }
 }
 </style>
 </head>
