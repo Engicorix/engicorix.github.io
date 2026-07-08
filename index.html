@@ -22,7 +22,12 @@ body{font-family:'MICEGothic','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothi
   flex-shrink:0;position:relative;min-height:46px}
 .hdr-logo {font-weight:900; font-size:18px; color:#58c8f8; letter-spacing:1px;}
 .hdr-mid{position:absolute;left:50%;transform:translateX(-50%);
-  font-size:11px;color:var(--muted);letter-spacing:.08em;font-weight:600;white-space:nowrap}
+  font-size:13px;font-weight:900;letter-spacing:.22em;white-space:nowrap;
+  text-transform:uppercase;
+  background:linear-gradient(90deg,var(--om),var(--epc),var(--dt));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:.4px rgba(255,255,255,.5);
+  filter:drop-shadow(0 0 14px rgba(88,200,248,.28))}
 .filters{display:flex;gap:5px}
 .fb{padding:4px 12px;border-radius:999px;font-family:inherit;font-size:11px;
   font-weight:700;cursor:pointer;border:1px solid var(--border);
@@ -34,11 +39,11 @@ body{font-family:'MICEGothic','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothi
 .fb.a-dt{background:var(--dt-b);border-color:var(--dt);color:var(--dt)}
 
 .layout{display:flex;flex:1;overflow:hidden}
-.gwrap{flex:1;position:relative;overflow:hidden;background:var(--bg); touch-action: none;}
+.gwrap{flex:7 1 0;position:relative;overflow:hidden;background:var(--bg); touch-action: none;}
 canvas{display:block;width:100%;height:100%;cursor:grab; touch-action: none;}
 canvas:active{cursor:grabbing;}
 
-.sb{width:240px;flex-shrink:0;background:var(--bg2);
+.sb{flex:3 1 0;width:auto;min-width:0;background:var(--bg2);
   border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;z-index:10;
   touch-action: pan-y;}
 .sb::-webkit-scrollbar{width:3px}
@@ -72,13 +77,22 @@ canvas:active{cursor:grabbing;}
 .dc-n{font-size:18px;font-weight:900;color:#58c8f8;line-height:1}
 .dc-s{font-size:7.5px;color:var(--muted);margin-top:1px}
 
-.barbox{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:7px 9px;margin-top:6px;}
-.br{display:flex;align-items:center;gap:5px;margin-bottom:5px; cursor:help;}
-.br:last-child{margin-bottom:0}
-.br-l{font-size:8.5px;color:var(--muted);width:45px;flex-shrink:0}
-.br-t{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
-.br-f{height:100%;border-radius:2px;transition:width 1.2s ease}
-.br-v{font-size:8.5px;font-weight:700;color:var(--bright);width:15px;text-align:right}
+.certgrp{margin-bottom:14px;padding-left:9px;border-left:3px solid var(--cclr,#58c8f8)}
+.certgrp:last-child{margin-bottom:0}
+.certgrp-hdr{display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:5px;margin-bottom:7px;border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none}
+.certgrp-hdr-l{display:flex;align-items:baseline;gap:8px;min-width:0}
+.certgrp-name{font-size:10.5px;font-weight:800;color:var(--bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.certgrp-total{font-size:8.5px;font-weight:700;color:var(--cclr,#58c8f8);flex-shrink:0}
+.certgrp-icon{font-size:12px;font-weight:900;color:var(--bright);flex-shrink:0;margin-left:8px;width:14px;text-align:center}
+.certlist{display:flex;flex-direction:column;gap:5px}
+.certrow{display:flex;align-items:center;gap:7px}
+.certrow-l{font-size:8.5px;color:var(--text);width:100px;flex-shrink:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.certrow-t{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.certrow-f{height:100%;border-radius:3px;background:var(--cclr,#58c8f8)}
+.certrow-v{font-size:8.5px;font-weight:800;color:var(--bright);width:16px;text-align:right;flex-shrink:0}
 
 .cap-desc { font-size:10px; color:var(--text); line-height:1.4; margin-bottom:10px; }
 .hint-box { background:var(--bg3); border:1px solid var(--border); border-radius:7px; padding:12px; font-size:9.5px; color:var(--muted); line-height:1.5; text-align:center; display:flex; flex-direction:column; align-items:center; }
@@ -118,18 +132,58 @@ canvas:active{cursor:grabbing;}
   box-shadow:0 3px 12px rgba(0,0,0,.5);display:none;
   white-space:normal;max-width:200px;line-height:1.45;text-align:center}
 
+@media (min-width: 1200px) {
+  .hdr { padding: 16px 32px; min-height: 66px; }
+  .hdr-logo { font-size: 28px; letter-spacing: 1.5px; }
+  .hdr-mid { font-size: 24px; letter-spacing: .3em; }
+  .fb { font-size: 13.5px; padding: 7px 20px; }
+
+  .sb-sec { padding: 20px 22px; }
+  .sb-ttl { font-size: 11.5px; margin-bottom: 13px; }
+
+  .pool { padding: 16px 18px; gap: 14px; }
+  .pool-n { font-size: 38px; }
+  .pool-ns { font-size: 20px; }
+  .pool-l { font-size: 14.5px; }
+  .pool-s { font-size: 11.5px; }
+
+  .dgrid { gap: 9px; }
+  .dc { padding: 12px 14px; }
+  .dc-l { font-size: 11px; }
+  .dc-n { font-size: 27px; }
+  .dc-s { font-size: 10.5px; }
+
+  .lic li { font-size: 14px; padding: 5px 0 5px 18px; }
+  .lic li::before { font-size: 16px; }
+
+  .certgrp { padding-left: 12px; border-left-width: 4px; }
+  .certgrp-name { font-size: 14px; }
+  .certgrp-total { font-size: 12px; }
+  .certrow-l { font-size: 12px; width: 190px; }
+  .certrow-t { height: 7px; }
+  .certrow-v { font-size: 12.5px; width: 26px; }
+
+  .cap-desc { font-size: 13px; }
+  .cap-desc > div span { width: 82px !important; }
+  .hint-box { padding: 16px; font-size: 12px; }
+  .hint-box .hint-i { font-size: 20px; }
+}
+
 @media (max-width: 768px) {
   .hdr { flex-direction: column; height: auto; padding: 10px 10px 8px; gap: 6px; }
   .hdr-mid { position: relative; left: 0; transform: none; }
   .filters { flex-wrap: wrap; justify-content: center; }
+  /* 모바일에서는 화면이 좁아 좌우 배치 시 각 영역이 너무 작아지므로,
+     그래프는 위쪽/사이드바는 아래쪽으로 다시 배치하고 비율은 6:4로 지정.
+     .layout이 이미 헤더를 제외한 나머지 공간을 정확히 차지(flex:1)하므로
+     flex-direction만 column으로 바꾸면 gwrap/sb가 그 공간을 6:4 비율로 세로 분할함 */
   .layout { flex-direction: column; }
-  /* 기존엔 gwrap(60vh)+sb(40vh)=100vh 였는데, 헤더 높이가 별도로 더해져
-     전체 합이 100vh를 넘어가면서 body의 overflow:hidden에 하단이 잘렸음.
-     .layout은 이미 헤더를 제외한 나머지 공간(flex:1)을 정확히 차지하므로,
-     그 안에서는 vh가 아닌 flex 비율로 나눠서 실제 남은 공간 안에서만 분배되도록 함 */
-  .gwrap { flex: 1 1 0; height: auto; min-height: 0; }
-  .sb { flex: 1.15 1 0; height: auto; min-height: 0; width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  .gwrap { flex: 6 1 0; width: auto; min-width: 0; }
+  .sb { flex: 4 1 0; width: 100%; min-width: 0; border-left: none; border-top: 1px solid var(--border); }
+  .sb-sec { padding: 10px 11px; }
 }
+
+
 </style>
 </head>
 <body>
@@ -187,22 +241,91 @@ canvas:active{cursor:grabbing;}
           <div class="dc-l">기타</div><div class="dc-n">34</div><div class="dc-s">Engineer</div>
         </div>
       </div>
-      <div class="barbox">
-        <div class="br" data-title="보유 자격: 건설안전기술사 (총 1명)">
-          <span class="br-l">기술사</span>
-          <div class="br-t"><div class="br-f" id="b1" style="width:0;background:#2288e8"></div></div>
-          <span class="br-v">1</span>
+    </div>
+
+    <!-- 1-1. 보유 자격증 전체 현황 섹션 -->
+    <div class="sb-sec">
+      <div class="sb-ttl">&#x2605; 보유 자격증 현황</div>
+
+      <div id="certBody">
+      <div class="certgrp" style="--cclr:#2288e8">
+        <div class="certgrp-hdr">
+          <div class="certgrp-hdr-l">
+            <span class="certgrp-name">기술사 (PE)</span>
+            <span class="certgrp-total">총 1건</span>
+          </div>
+          <span class="certgrp-icon">+</span>
         </div>
-        <div class="br" data-title="대표 자격: 전기기사(20), 산업안전기사(19), 전기공사기사(12), 건축기사(10) 등 (보유자 61명, 총 114건)">
-          <span class="br-l">기사</span>
-          <div class="br-t"><div class="br-f" id="b2" style="width:0;background:#e8881a"></div></div>
-          <span class="br-v">61</span>
+        <div class="certlist" style="display:none">
+          <div class="certrow"><span class="certrow-l">건설안전기술사</span><div class="certrow-t"><div class="certrow-f" style="width:100%"></div></div><span class="certrow-v">1</span></div>
         </div>
-        <div class="br" data-title="대표 자격: 위험물산업기사(7), 산업안전산업기사(3) 등 (보유자 17명, 총 19건)">
-          <span class="br-l">산업기사</span>
-          <div class="br-t"><div class="br-f" id="b3" style="width:0;background:#18c870"></div></div>
-          <span class="br-v">17</span>
+      </div>
+
+      <div class="certgrp" style="--cclr:#b06be0">
+        <div class="certgrp-hdr">
+          <div class="certgrp-hdr-l">
+            <span class="certgrp-name">기능장 (Master Craftsman)</span>
+            <span class="certgrp-total">총 2건</span>
+          </div>
+          <span class="certgrp-icon">+</span>
         </div>
+        <div class="certlist" style="display:none">
+          <div class="certrow"><span class="certrow-l">위험물기능장</span><div class="certrow-t"><div class="certrow-f" style="width:100%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">전기기능장</span><div class="certrow-t"><div class="certrow-f" style="width:100%"></div></div><span class="certrow-v">1</span></div>
+        </div>
+      </div>
+
+      <div class="certgrp" style="--cclr:#e8881a">
+        <div class="certgrp-hdr">
+          <div class="certgrp-hdr-l">
+            <span class="certgrp-name">기사 (Engineer)</span>
+            <span class="certgrp-total">총 114건</span>
+          </div>
+          <span class="certgrp-icon">+</span>
+        </div>
+        <div class="certlist" style="display:none">
+          <div class="certrow"><span class="certrow-l">전기기사</span><div class="certrow-t"><div class="certrow-f" style="width:100%"></div></div><span class="certrow-v">20</span></div>
+          <div class="certrow"><span class="certrow-l">산업안전기사</span><div class="certrow-t"><div class="certrow-f" style="width:95%"></div></div><span class="certrow-v">19</span></div>
+          <div class="certrow"><span class="certrow-l">전기공사기사</span><div class="certrow-t"><div class="certrow-f" style="width:60%"></div></div><span class="certrow-v">12</span></div>
+          <div class="certrow"><span class="certrow-l">건축기사</span><div class="certrow-t"><div class="certrow-f" style="width:50%"></div></div><span class="certrow-v">10</span></div>
+          <div class="certrow"><span class="certrow-l">소방설비기사(전기)</span><div class="certrow-t"><div class="certrow-f" style="width:45%"></div></div><span class="certrow-v">9</span></div>
+          <div class="certrow"><span class="certrow-l">일반기계기사</span><div class="certrow-t"><div class="certrow-f" style="width:35%"></div></div><span class="certrow-v">7</span></div>
+          <div class="certrow"><span class="certrow-l">소방설비기사(기계)</span><div class="certrow-t"><div class="certrow-f" style="width:30%"></div></div><span class="certrow-v">6</span></div>
+          <div class="certrow"><span class="certrow-l">수질환경기사</span><div class="certrow-t"><div class="certrow-f" style="width:30%"></div></div><span class="certrow-v">6</span></div>
+          <div class="certrow"><span class="certrow-l">대기환경기사</span><div class="certrow-t"><div class="certrow-f" style="width:25%"></div></div><span class="certrow-v">5</span></div>
+          <div class="certrow"><span class="certrow-l">공조냉동기계기사</span><div class="certrow-t"><div class="certrow-f" style="width:20%"></div></div><span class="certrow-v">4</span></div>
+          <div class="certrow"><span class="certrow-l">건설안전기사</span><div class="certrow-t"><div class="certrow-f" style="width:20%"></div></div><span class="certrow-v">4</span></div>
+          <div class="certrow"><span class="certrow-l">설비보전기사</span><div class="certrow-t"><div class="certrow-f" style="width:15%"></div></div><span class="certrow-v">3</span></div>
+          <div class="certrow"><span class="certrow-l">건설기계설비기사</span><div class="certrow-t"><div class="certrow-f" style="width:10%"></div></div><span class="certrow-v">2</span></div>
+          <div class="certrow"><span class="certrow-l">화공기사</span><div class="certrow-t"><div class="certrow-f" style="width:10%"></div></div><span class="certrow-v">2</span></div>
+          <div class="certrow"><span class="certrow-l">가스기사</span><div class="certrow-t"><div class="certrow-f" style="width:5%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">에너지관리기사</span><div class="certrow-t"><div class="certrow-f" style="width:5%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">건축설비기사</span><div class="certrow-t"><div class="certrow-f" style="width:5%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">실내건축기사</span><div class="certrow-t"><div class="certrow-f" style="width:5%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">토목기사</span><div class="certrow-t"><div class="certrow-f" style="width:5%"></div></div><span class="certrow-v">1</span></div>
+        </div>
+      </div>
+
+      <div class="certgrp" style="--cclr:#18c870">
+        <div class="certgrp-hdr">
+          <div class="certgrp-hdr-l">
+            <span class="certgrp-name">산업기사 (Industrial Engineer)</span>
+            <span class="certgrp-total">총 19건</span>
+          </div>
+          <span class="certgrp-icon">+</span>
+        </div>
+        <div class="certlist" style="display:none">
+          <div class="certrow"><span class="certrow-l">위험물산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:100%"></div></div><span class="certrow-v">7</span></div>
+          <div class="certrow"><span class="certrow-l">산업안전산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:43%"></div></div><span class="certrow-v">3</span></div>
+          <div class="certrow"><span class="certrow-l">건축산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:29%"></div></div><span class="certrow-v">2</span></div>
+          <div class="certrow"><span class="certrow-l">전기산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:29%"></div></div><span class="certrow-v">2</span></div>
+          <div class="certrow"><span class="certrow-l">가스산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:14%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">공조냉동기계산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:14%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">소방설비산업기사(전기)</span><div class="certrow-t"><div class="certrow-f" style="width:14%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">실내건축산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:14%"></div></div><span class="certrow-v">1</span></div>
+          <div class="certrow"><span class="certrow-l">콘크리트산업기사</span><div class="certrow-t"><div class="certrow-f" style="width:14%"></div></div><span class="certrow-v">1</span></div>
+        </div>
+      </div>
       </div>
     </div>
     
@@ -215,6 +338,9 @@ canvas:active{cursor:grabbing;}
           <li>산업환경설비공사업</li>
           <li>건물용 기계·장비 설치</li>
           <li>전기공사업</li>
+          <li>승강설비설치공사업</li>
+          <li>엔지니어링 서비스업</li>
+          <li>사업시설 유지관리 서비스업</li>
         </ul>
       </div>
     </div>
@@ -430,7 +556,6 @@ function initPos(){
 
 var waveTime = 0;
 function sim(){
-  waveTime += 0.02;
   var K=.028, REP=3800, DAMP=.75;
   for(var i=0;i<ND.length;i++){
     for(var j=i+1;j<ND.length;j++){
@@ -451,10 +576,6 @@ function sim(){
   ND.forEach(function(n){
     n.vx+=(CX-n.x)*.0015; 
     n.vy+=(CY-n.y)*.0015;
-    // 유기적 출렁임: 노드마다 다른 위상(phase)의 사인/코사인 파동을 더해
-    // 완전히 정지한 상태가 아니라 살아있는 것처럼 부드럽게 흔들리게 함
-    n.vx += Math.sin(waveTime*1.3 + n.phase) * 0.16;
-    n.vy += Math.cos(waveTime*1.1 + n.phase2) * 0.16;
     n.vx*=DAMP; n.vy*=DAMP;
     n.x+=n.vx; n.y+=n.vy;
   });
@@ -500,7 +621,7 @@ function drawLabel(n,r,col){
   ctx.font="700 "+Math.round(fs)+"px 'MICEGothic','Apple SD Gothic Neo',sans-serif";
   ctx.textAlign="center"; ctx.textBaseline="middle";
   lines.forEach(function(l,i){
-    ctx.fillText(l,n.x,n.y+(i-(lines.length-1)/2)*fs*1.25);
+    ctx.fillText(l,n.lx,n.ly+(i-(lines.length-1)/2)*fs*1.25);
   });
 }
 
@@ -536,7 +657,7 @@ function draw(){
     ctx.strokeStyle=e.x?(inv?COL[a.p]:"#6ba8d1"):COL[a.p];
     ctx.lineWidth=(e.x?2.5:1.5)/scale;
     if(e.x) ctx.setLineDash([5/scale,5/scale]);
-    ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(a.rx,a.ry);ctx.lineTo(b.rx,b.ry);ctx.stroke();
     ctx.restore();
   });
 
@@ -552,19 +673,19 @@ function draw(){
     ctx.globalAlpha = ga;
 
     if(n.pillar){
-      var gr2=ctx.createRadialGradient(n.x,n.y,r*.1,n.x,n.y,r*2.3);
+      var gr2=ctx.createRadialGradient(n.rx,n.ry,r*.1,n.rx,n.ry,r*2.3);
       gr2.addColorStop(0,col+"33");gr2.addColorStop(1,col+"00");
-      ctx.beginPath();ctx.arc(n.x,n.y,r*2.3,0,Math.PI*2);ctx.fillStyle=gr2;ctx.fill();
-      hexPath(ctx,n.x,n.y,r);
+      ctx.beginPath();ctx.arc(n.rx,n.ry,r*2.3,0,Math.PI*2);ctx.fillStyle=gr2;ctx.fill();
+      hexPath(ctx,n.rx,n.ry,r);
       ctx.fillStyle=col;ctx.fill();
       ctx.strokeStyle=isS||isH?"#fff":col;ctx.lineWidth=(isS||isH?2.5:1.5)/scale;ctx.stroke();
       ctx.fillStyle="#fff";
       ctx.font="800 "+(r*.44)+"px 'MICEGothic','Apple SD Gothic Neo',sans-serif";
-      ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.label,n.x,n.y);
+      ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.label,n.lx,n.ly);
     
     } else if(n.empty){
-      hexPath(ctx,n.x,n.y,r);
-      var emptyGr = ctx.createLinearGradient(n.x-r,n.y-r,n.x+r,n.y+r);
+      hexPath(ctx,n.rx,n.ry,r);
+      var emptyGr = ctx.createLinearGradient(n.rx-r,n.ry-r,n.rx+r,n.ry+r);
       emptyGr.addColorStop(0,"#152033");
       emptyGr.addColorStop(1,"#080d14");
       
@@ -581,17 +702,17 @@ function draw(){
       ctx.fillStyle = "#2a3a54";
       ctx.font = "700 "+Math.round(r*0.85)+"px 'MICEGothic','Apple SD Gothic Neo',sans-serif";
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.fillText("+", n.x, n.y);
+      ctx.fillText("+", n.lx, n.ly);
       
     } else {
       if(isH||isS||conn){
         ctx.globalAlpha=ga*.4;
-        hexPath(ctx,n.x,n.y,r*1.4);
+        hexPath(ctx,n.rx,n.ry,r*1.4);
         ctx.fillStyle=col+"20";ctx.fill();
         ctx.globalAlpha=ga;
       }
-      hexPath(ctx,n.x,n.y,r);
-      var gr3=ctx.createLinearGradient(n.x-r,n.y-r,n.x+r,n.y+r);
+      hexPath(ctx,n.rx,n.ry,r);
+      var gr3=ctx.createLinearGradient(n.rx-r,n.ry-r,n.rx+r,n.ry+r);
       if(isH||isS){
         gr3.addColorStop(0,colG);gr3.addColorStop(1,colD);
       } else {
@@ -651,8 +772,8 @@ function showCard(n){
   } else{relDiv.style.display="none";}
   
   card.style.display="block";
-  var screenX = n.x * scale + offsetX;
-  var screenY = n.y * scale + offsetY;
+  var screenX = (n.rx!==undefined?n.rx:n.x) * scale + offsetX;
+  var screenY = (n.ry!==undefined?n.ry:n.y) * scale + offsetY;
   updateCardPosition(screenX, screenY);
 }
 
@@ -673,7 +794,8 @@ function getNode(mx,my){
   var best=null, bd=Infinity;
   ND.forEach(function(n){
     if(!vis(n) || n.empty) return;
-    var d=Math.sqrt((worldX-n.x)*(worldX-n.x)+(worldY-n.y)*(worldY-n.y));
+    var nx=n.rx!==undefined?n.rx:n.x, ny=n.ry!==undefined?n.ry:n.y;
+    var d=Math.sqrt((worldX-nx)*(worldX-nx)+(worldY-ny)*(worldY-ny));
     if(d<n.r*n.sc+8 && d<bd){best=n;bd=d;}
   });
   return best;
@@ -827,12 +949,6 @@ document.querySelectorAll(".fb").forEach(function(b){
   });
 });
 
-setTimeout(function(){
-  document.getElementById("b1").style.width="5%";
-  document.getElementById("b2").style.width="90%";
-  document.getElementById("b3").style.width="30%";
-},600);
-
 function positionTip(e){
   var tw = tip.offsetWidth || 200;
   var th = tip.offsetHeight || 28;
@@ -847,6 +963,16 @@ function positionTip(e){
 }
 
 // 빠른 커스텀 툴팁을 사이드바 아이템에도 적용
+document.querySelectorAll(".certgrp-hdr").forEach(function(hdr){
+  hdr.addEventListener("click", function(){
+    var list = hdr.parentElement.querySelector(".certlist");
+    var icon = hdr.querySelector(".certgrp-icon");
+    var isOpen = list.style.display !== "none";
+    list.style.display = isOpen ? "none" : "";
+    icon.textContent = isOpen ? "+" : "\u2212";
+  });
+});
+
 document.querySelectorAll('[data-title]').forEach(function(el) {
   el.addEventListener('mouseenter', function(e) {
     tip.style.display = "block";
@@ -862,12 +988,18 @@ document.querySelectorAll('[data-title]').forEach(function(el) {
 });
 
 function loop(){
-  // 매 프레임 미세 시뮬레이션을 계속 돌려 유기적 출렁임(웨이브)이 끊김없이 이어지게 함
-  sim();
+  waveTime += 0.02;
 
-  // Node Scale Hover 효과
   ND.forEach(function(n){
+    // Node Scale Hover 효과
     n.sc+=(n.tsc-n.sc)*.18;
+    // 유기적 출렁임: 버블은 서로 다른 주파수/위상의 사인파를 x,y에 각각 적용해
+    // 단순 좌우 왕복이 아니라 리사주 곡선처럼 자연스럽게 표류하듯 움직임.
+    // 텍스트도 버블과 완전히 같은 좌표를 사용해 버블과 함께 움직임
+    n.rx = n.x + Math.sin(waveTime*1.3 + n.phase) * 6;
+    n.ry = n.y + Math.sin(waveTime*0.85 + n.phase2) * 4;
+    n.lx = n.rx;
+    n.ly = n.ry;
   });
   
   if(!isDragging && (Math.abs(panVx) > 0.1 || Math.abs(panVy) > 0.1)) {
@@ -880,8 +1012,8 @@ function loop(){
   draw();
   
   if (sel) {
-    var screenX = sel.x * scale + offsetX;
-    var screenY = sel.y * scale + offsetY;
+    var screenX = sel.rx * scale + offsetX;
+    var screenY = sel.ry * scale + offsetY;
     updateCardPosition(screenX, screenY);
   }
 
