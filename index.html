@@ -114,8 +114,9 @@ canvas:active{cursor:grabbing;}
 .crtag:hover{opacity:.7}
 #tip{position:fixed;pointer-events:none;z-index:200;
   background:rgba(8,13,20,.95);color:var(--bright);border:1px solid var(--border);
-  border-radius:6px;padding:4px 10px;font-size:10px;font-family:inherit;font-weight:600;
-  box-shadow:0 3px 12px rgba(0,0,0,.5);display:none;white-space:nowrap}
+  border-radius:6px;padding:6px 10px;font-size:10px;font-family:inherit;font-weight:600;
+  box-shadow:0 3px 12px rgba(0,0,0,.5);display:none;
+  white-space:normal;max-width:200px;line-height:1.45;text-align:center}
 
 @media (max-width: 768px) {
   .hdr { flex-direction: column; height: auto; padding: 10px 10px 8px; gap: 6px; }
@@ -258,19 +259,19 @@ function hexPath(ctx,cx,cy,r){
 
 var ND = [
   // --- O&M ---
-  {id:"om0",label:"O&M",p:"om",r:28,pillar:true,desc:"설비 운영·유지보수에서 AI 자율제조까지 전주기 O&M 역량을 보유합니다.",pts:["설비 도메인 지식","AI 예지정비","전주기 토탈"],rel:[]},
-  {id:"om1",label:"설비\n예지정비",p:"om",r:16,desc:"AI 센서·데이터 기반 설비 이상 예측 역량을 보유합니다.",pts:["AI 이상 진단","수명 예측","실시간 센서"],rel:["dt9","dt10","om10"]},
+  {id:"om0",label:"O&M",p:"om",r:28,pillar:true,desc:"설비 운영·유지보수에서 AI 자율제조까지 전주기 O&M 역량을 확보하고 있습니다.",pts:["설비 도메인 지식","AI 예지정비","전주기 토탈"],rel:[]},
+  {id:"om1",label:"설비\n예지정비",p:"om",r:16,desc:"AI 센서·데이터 기반 설비 이상 예측 역량을 확보하고 있습니다.",pts:["AI 이상 진단","수명 예측","실시간 센서"],rel:["dt9","dt10","om10"]},
   {id:"om2",label:"스마트\n팩토리",p:"om",r:16,desc:"AI 기반 스마트 팩토리 구축 역량을 갖추고 있습니다.",pts:["생산 모니터링","자동화 라인","OEE 최적화"],rel:["dt9","dt10","epc5"]},
   {id:"om3",label:"O&M\nTotal",p:"om",r:16,desc:"전주기 토탈 서비스를 제공합니다.",pts:["예방정비","24/7 대응","설비 이력"],rel:["epc6"]},
-  {id:"om4",label:"설비\n리퍼비시",p:"om",r:15,desc:"노후 설비를 재생·재판매하는 플랫폼 역량을 보유합니다.",pts:["정밀 진단","기능 복원","재판매 품질"],rel:["epc1","dt3"]},
-  {id:"om5",label:"Roll-to-Roll\n공정",p:"om",r:17,desc:"정밀 장력 제어와 고난도 필름 공정 안정화 역량을 보유합니다.",pts:["정밀 장력 제어","필름 공정 안정화","연속 운전 품질"],rel:["epc1","dt5"]},
+  {id:"om4",label:"설비\n리퍼비시",p:"om",r:15,desc:"노후 설비를 재생·재판매하는 플랫폼 역량을 확보하고 있습니다.",pts:["정밀 진단","기능 복원","재판매 품질"],rel:["epc1","dt3"]},
+  {id:"om5",label:"Roll-to-Roll\n공정",p:"om",r:17,desc:"정밀 장력 제어와 고난도 필름 공정 안정화 역량을 확보하고 있습니다.",pts:["정밀 장력 제어","필름 공정 안정화","연속 운전 품질"],rel:["epc1","dt5"]},
   {id:"om6",label:"에너지\n진단",p:"om",r:14,desc:"공장·건물 에너지 진단 및 절감 컨설팅 서비스를 제공합니다.",pts:["패턴 분석","절감 시스템","정부 연계"],rel:["epc9"]},
   {id:"om7",label:"건물 FM",p:"om",r:14,desc:"종합건설업 면허 기반 FM 정기 계약 서비스를 운영합니다.",pts:["종합건설력 면허","정기 계약","시설 최적화"],rel:["epc7"]},
   {id:"om8",label:"AI\n자율제조",p:"om",r:18,desc:"AI 기반 완전 자율제조 공장 구현 역량을 개발하고 있습니다.",pts:["자율 의사결정","무인 생산","글로벌 잇점"],rel:["dt8","dt10","dt9"]},
-  {id:"om9",label:"Lab Auto",p:"om",r:14,desc:"실험실 자동화 시스템 구축 역량을 보유합니다.",pts:["실험 자동화","데이터 통합","화학·소재"],rel:["dt1","dt10","dt13"]},
-  {id:"om10",label:"설비\n데이터",p:"om",r:14,desc:"현장 설비 데이터를 체계적으로 수집·관리하는 역량을 보유합니다.",pts:["IoT 센서","데이터 파이프라인","이력 분석"],rel:["dt9","dt10","om1"]},
+  {id:"om9",label:"Lab Auto",p:"om",r:14,desc:"실험실 자동화 시스템 구축 역량을 확보하고 있습니다.",pts:["실험 자동화","데이터 통합","화학·소재"],rel:["dt1","dt10","dt13"]},
+  {id:"om10",label:"설비\n데이터",p:"om",r:14,desc:"현장 설비 데이터를 체계적으로 수집·관리하는 역량을 확보하고 있습니다.",pts:["IoT 센서","데이터 파이프라인","이력 분석"],rel:["dt9","dt10","om1"]},
   {id:"om11",label:"공정\n모니터링",p:"om",r:14,desc:"공정 이상을 실시간으로 감지하고 대응하는 체계를 운영합니다.",pts:["실시간 시각화","이상 알림","원격 모니터링"],rel:["epc8","dt10"]},
-  {id:"om12",label:"설비\n수명관리",p:"om",r:14,desc:"설비의 전주기 수명 관리 역량을 보유합니다.",pts:["수명 예측","교체 주기","정비계획"],rel:["om1","dt9"]},
+  {id:"om12",label:"설비\n수명관리",p:"om",r:14,desc:"설비의 전주기 수명 관리 역량을 확보하고 있습니다.",pts:["수명 예측","교체 주기","정비계획"],rel:["om1","dt9"]},
   {id:"om13",label:"유틸리티\n운영",p:"om",r:15,desc:"AI 기반 유틸리티 운영 솔루션으로 운전 패턴과 데이터를 실시간 분석해 이상 징후를 감지합니다.",pts:["AI 운전 분석","유틸리티 안정화","공급망 관리"],rel:["om10","dt10"]},
   {id:"om14",label:"물류·제조\n자동화",p:"om",r:15,desc:"제조/물류 자동화를 통해 공정 흐름을 최적화합니다.",pts:["자동 이송","공정 연계","인력 의존도 감소"],rel:["om2","epc6","dt10"]},
   
@@ -283,19 +284,19 @@ var ND = [
   // --- EPC ---
   {id:"epc0",label:"EPC",p:"epc",r:28,pillar:true,desc:"설계·조달·시공 전 단계 역량을 보유하며 원스톱 솔루션을 제공합니다.",pts:["플랜트 전주기 설계","글로벌 소싱","품질·안전 관리"],rel:[]},
   {id:"epc1",label:"Plant\nEng",p:"epc",r:16,desc:"플랜트 기본·상세 설계 역량을 갖추고 있습니다.",pts:["공정 설계","P&ID","3D 모델링"],rel:["dt2","om4","dt3"]},
-  {id:"epc2",label:"조달\n관리",p:"epc",r:15,desc:"국내외 공급망 구축 및 자재·장비 조달 관리 역량을 보유합니다.",pts:["글로벌 소싱","LCC 협업","납기 통합"],rel:["epc10"]},
-  {id:"epc3",label:"시공·\n건설",p:"epc",r:15,desc:"EPC 시공 현장 관리 및 품질·공정·안전 통합 관리 능력을 보유합니다.",pts:["품질 관리","HSE 안전","시운전"],rel:["epc4","om3"]},
+  {id:"epc2",label:"조달\n관리",p:"epc",r:15,desc:"국내외 공급망 구축 및 자재·장비 조달 관리 역량을 확보하고 있습니다.",pts:["글로벌 소싱","LCC 협업","납기 통합"],rel:["epc10"]},
+  {id:"epc3",label:"시공·\n건설",p:"epc",r:15,desc:"EPC 시공 현장 관리 및 품질·공정·안전 통합 관리 능력을 확보하고 있습니다.",pts:["품질 관리","HSE 안전","시운전"],rel:["epc4","om3"]},
   {id:"epc4",label:"안전설계\nDfS",p:"epc",r:15,desc:"Design for Safety 체계를 운영합니다.",pts:["위험성 평가","안전 기준","DfS 인증"],rel:["epc8","epc3"]},
   {id:"epc5",label:"AI 설계\n자동화",p:"epc",r:15,desc:"AI를 활용한 설계 자동화 및 디지털 트윈 구현 역량을 갖추고 있습니다.",pts:["AI 자동화","디지털 트윈","오류 제로화"],rel:["dt9","dt3","om2"]},
   {id:"epc6",label:"EPC\n+O&M",p:"epc",r:17,desc:"EPC 설계·시공에서 운영·유지보수까지 원스톱 통합 서비스를 제공합니다.",pts:["설계~운영","TCO 최소화","O&M 연계"],rel:["om3","om0"]},
-  {id:"epc7",label:"인허가",p:"epc",r:13,desc:"종합건설업 면허를 포함한 인허가 프로세스 전문성을 보유합니다.",pts:["종합건설력","인허가 전문화","규제 대응"],rel:["om7"]},
-  {id:"epc8",label:"가스·누액\n감지",p:"epc",r:14,desc:"공장 내 가스 및 액체 누출 감지 시스템 구축·운영 역량을 보유합니다.",pts:["가스 감지","누액 자동화","안전 모니터링"],rel:["epc4","om11"]},
-  {id:"epc9",label:"신재생\nEPC",p:"epc",r:13,desc:"태양광·풍력 EPC 사업 역량을 보유합니다.",pts:["태양광·풍력","정부 연계","ESS 설계"],rel:["om6","dt7"]},
+  {id:"epc7",label:"인허가",p:"epc",r:13,desc:"종합건설업 면허를 포함한 인허가 프로세스 전문성을 확보하고 있습니다.",pts:["종합건설력","인허가 전문화","규제 대응"],rel:["om7"]},
+  {id:"epc8",label:"가스·누액\n감지",p:"epc",r:14,desc:"공장 내 가스 및 액체 누출 감지 시스템 구축·운영 역량을 확보하고 있습니다.",pts:["가스 감지","누액 자동화","안전 모니터링"],rel:["epc4","om11"]},
+  {id:"epc9",label:"신재생\nEPC",p:"epc",r:13,desc:"태양광·풍력 EPC 사업 역량을 확보하고 있습니다.",pts:["태양광·풍력","정부 연계","ESS 설계"],rel:["om6","dt7"]},
   {id:"epc10",label:"컨소시엄",p:"epc",r:13,desc:"타 EPC사와 컨소시엄 구성으로 대형 프로젝트에 참여합니다.",pts:["대형 프로젝트","파트너 네트워크","리스크 분산"],rel:["epc2"]},
   {id:"epc11",label:"첨단소재\n플랜트",p:"epc",r:16,desc:"리퓨얼 리사이클링, 광학필름, CCL 등 첨단소재 플랜트를 구축합니다.",pts:["리퓨얼 리사이클링","광학필름 설비","CCL·양극재"],rel:["epc1","dt5","om5"]},
-  {id:"epc12",label:"Integrated\nEPC",p:"epc",r:15,desc:"Fast-Track, Turnkey, Customization 방식의 유연한 통합 EPC 수행 역량을 보유합니다.",pts:["Fast-Track","Turnkey","Customization"],rel:["epc3","epc6"]},
+  {id:"epc12",label:"Integrated\nEPC",p:"epc",r:15,desc:"Fast-Track, Turnkey, Customization 방식의 유연한 통합 EPC 수행 역량을 확보하고 있습니다.",pts:["Fast-Track","Turnkey","Customization"],rel:["epc3","epc6"]},
   {id:"epc13",label:"BIM\n설계",p:"epc",r:13,desc:"BIM 기반 스마트 설계 역량을 갖추고 있습니다.",pts:["BIM 3D","간섭 체크","설계-시공"],rel:["epc5","dt9"]},
-  {id:"epc14",label:"해외\n기술용역",p:"epc",r:13,desc:"해외 생산 Site 기술지원 및 해외 EPC 기술 용역 역량을 보유합니다.",pts:["해외 기술지원","해외 EPC","글로벌 파트너"],rel:["epc10","epc12"]},
+  {id:"epc14",label:"해외\n기술용역",p:"epc",r:13,desc:"해외 생산 Site 기술지원 및 해외 EPC 기술 용역 역량을 확보하고 있습니다.",pts:["해외 기술지원","해외 EPC","글로벌 파트너"],rel:["epc10","epc12"]},
 
   {id:"epc15",label:"",p:"epc",r:13,empty:true,pts:[],rel:["epc2","epc9"]},
   {id:"epc16",label:"",p:"epc",r:14,empty:true,pts:[],rel:["epc5","epc12"]},
@@ -304,21 +305,21 @@ var ND = [
   {id:"epc19",label:"",p:"epc",r:13,empty:true,pts:[],rel:["epc4","epc11"]},
 
   // --- Deep-Tech ---
-  {id:"dt0",label:"Deep-Tech",p:"dt",r:28,pillar:true,desc:"기업부설연구소를 기반으로 독자적 R&D 역량과 IP 포트폴리오를 보유합니다.",pts:["기업부설연구소","핵심 특허","AI 제조 방법론"],rel:[]},
+  {id:"dt0",label:"Deep-Tech",p:"dt",r:28,pillar:true,desc:"기업부설연구소를 기반으로 독자적 R&D 역량과 IP 포트폴리오를 확보하고 있습니다.",pts:["기업부설연구소","핵심 특허","AI 제조 방법론"],rel:[]},
   {id:"dt1",label:"기업부설\n연구소",p:"dt",r:16,desc:"기업부설연구소를 운영하며 체계적인 R&D 역량을 갖추고 있습니다.",pts:["연구소 운영","R&D 세제","연구인력"],rel:["om9","dt7"]},
-  {id:"dt2",label:"OLED\n공정",p:"dt",r:15,desc:"OLED 승화공정 인라인 자동화 시스템 개발 역량을 보유합니다.",pts:["OLED 승화공정","인라인 자동화","공정 최적화"],rel:["epc1","dt5"]},
-  {id:"dt3",label:"설비·기술\n특허",p:"dt",r:16,desc:"핵심 기술 특허 출원 및 IP 포트폴리오를 보유합니다.",pts:["특허 출원","IP 포트폴리오","기술 사업화"],rel:["epc5","om4"]},
+  {id:"dt2",label:"OLED\n공정",p:"dt",r:15,desc:"OLED 승화공정 인라인 자동화 시스템 개발 역량을 확보하고 있습니다.",pts:["OLED 승화공정","인라인 자동화","공정 최적화"],rel:["epc1","dt5"]},
+  {id:"dt3",label:"설비·기술\n특허",p:"dt",r:16,desc:"핵심 기술 특허 출원 및 IP 포트폴리오를 확보하고 있습니다.",pts:["특허 출원","IP 포트폴리오","기술 사업화"],rel:["epc5","om4"]},
   {id:"dt4",label:"Back-end\n파운드리",p:"dt",r:15,desc:"반도체 후공정 파운드리 사업 역량을 갖추고 있습니다.",pts:["후공정 기술","파운드리 파트너","팹리스"],rel:["epc1","dt5"]},
-  {id:"dt5",label:"소재·공정\n기술",p:"dt",r:16,desc:"MRTL, LFP, 광학필름, 유리기판, CCL 등 첨단소재 공정 기술 역량을 보유합니다.",pts:["MRTL·LFP","리퓨얼 리사이클링","유리기판·CCL"],rel:["om5","dt2","dt4","epc11"]},
+  {id:"dt5",label:"소재·공정\n기술",p:"dt",r:16,desc:"MRTL, LFP, 광학필름, 유리기판, CCL 등 첨단소재 공정 기술 역량을 확보하고 있습니다.",pts:["MRTL·LFP","리퓨얼 리사이클링","유리기판·CCL"],rel:["om5","dt2","dt4","epc11"]},
   {id:"dt6",label:"AI Color\n개발",p:"dt",r:16,desc:"엔지니어링 플라스틱 컬러 개발 공정을 AI 기반으로 전환하고 있습니다.",pts:["컬러 AI 예측","공정 자동화","색상 품질"],rel:["dt10","dt3"]},
   {id:"dt7",label:"산학·\n외부협력",p:"dt",r:13,desc:"대학·연구기관·지자체와 R&D 협력 네트워크를 구축하고 있습니다.",pts:["공동 연구개발","지자체 파트너","정부 과제"],rel:["dt1","epc9"]},
-  {id:"dt8",label:"Dark\nFactory",p:"dt",r:18,desc:"완전 자율화·무인화 공장 구현을 위한 통합 플랫폼 기술을 보유합니다.",pts:["무인화 플랫폼","글로벌 잇점","해외 시장"],rel:["om8","dt9","dt10"]},
-  {id:"dt9",label:"디지털\n트윈",p:"dt",r:15,desc:"물리 설비와 동기화된 디지털 트윈 모델 구축 역량을 보유합니다.",pts:["디지털 복제","실시간 동기화","시뮬레이션"],rel:["om2","om1","epc5","dt8"]},
-  {id:"dt10",label:"AI 공정\n최적화",p:"dt",r:15,desc:"AI 알고리즘을 활용한 제조 공정 파라미터 최적화 역량을 보유합니다.",pts:["파라미터 조정","수율 향상","이상 감지"],rel:["om2","om8","dt9","dt6"]},
+  {id:"dt8",label:"Dark\nFactory",p:"dt",r:18,desc:"완전 자율화·무인화 공장 구현을 위한 통합 플랫폼 기술을 확보하고 있습니다.",pts:["무인화 플랫폼","글로벌 잇점","해외 시장"],rel:["om8","dt9","dt10"]},
+  {id:"dt9",label:"디지털\n트윈",p:"dt",r:15,desc:"물리 설비와 동기화된 디지털 트윈 모델 구축 역량을 확보하고 있습니다.",pts:["디지털 복제","실시간 동기화","시뮬레이션"],rel:["om2","om1","epc5","dt8"]},
+  {id:"dt10",label:"AI 공정\n최적화",p:"dt",r:15,desc:"AI 알고리즘을 활용한 제조 공정 파라미터 최적화 역량을 확보하고 있습니다.",pts:["파라미터 조정","수율 향상","이상 감지"],rel:["om2","om8","dt9","dt6"]},
   {id:"dt11",label:"R&D\n로드맵",p:"dt",r:13,desc:"중장기 R&D 방향성과 기술 로드맵을 체계적으로 수립·운영합니다.",pts:["기술 트렌드","R&D 우선순위","마일스톤"],rel:["dt1","dt7"]},
-  {id:"dt12",label:"IP 전략",p:"dt",r:13,desc:"IP 전략 수립 및 포트폴리오 관리 역량을 보유합니다.",pts:["포트폴리오","IP 리스크","기술이전"],rel:["dt3","dt11"]},
+  {id:"dt12",label:"IP 전략",p:"dt",r:13,desc:"IP 전략 수립 및 포트폴리오 관리 역량을 확보하고 있습니다.",pts:["포트폴리오","IP 리스크","기술이전"],rel:["dt3","dt11"]},
   {id:"dt13",label:"Autonomous\nLab",p:"dt",r:16,desc:"실험 설계, 실행, 분석, 최적화 과정을 하나의 지능형 시스템으로 통합한 차세대 R&D 플랫폼입니다.",pts:["AI 실험 설계","로봇 자동화","데이터 기반 혁신"],rel:["om9","dt1","dt10"]},
-  {id:"dt14",label:"Pilot &\nScale-up",p:"dt",r:16,desc:"Lab Scale 성과를 양산 경쟁력으로 완성하는 공정 엔지니어링 역량을 보유합니다.",pts:["Lab → Pilot","양산 Scale-up","수율·재현성"],rel:["dt1","dt5","dt10","dt13"]},
+  {id:"dt14",label:"Pilot &\nScale-up",p:"dt",r:16,desc:"Lab Scale 성과를 양산 경쟁력으로 완성하는 공정 엔지니어링 역량을 확보하고 있습니다.",pts:["Lab → Pilot","양산 Scale-up","수율·재현성"],rel:["dt1","dt5","dt10","dt13"]},
 
   {id:"dt15",label:"",p:"dt",r:13,empty:true,pts:[],rel:["dt2","dt9"]},
   {id:"dt16",label:"",p:"dt",r:12,empty:true,pts:[],rel:["dt5","dt12"]},
@@ -832,15 +833,28 @@ setTimeout(function(){
   document.getElementById("b3").style.width="30%";
 },600);
 
+function positionTip(e){
+  var tw = tip.offsetWidth || 200;
+  var th = tip.offsetHeight || 28;
+  var left = e.clientX - tw/2;
+  var minLeft = 6, maxLeft = window.innerWidth - tw - 6;
+  if(left < minLeft) left = minLeft;
+  if(left > maxLeft) left = maxLeft;
+  var top = e.clientY + 18;
+  if(top + th > window.innerHeight - 6) top = e.clientY - th - 14;
+  tip.style.left = left + "px";
+  tip.style.top = top + "px";
+}
+
 // 빠른 커스텀 툴팁을 사이드바 아이템에도 적용
 document.querySelectorAll('[data-title]').forEach(function(el) {
   el.addEventListener('mouseenter', function(e) {
     tip.style.display = "block";
     tip.textContent = this.getAttribute('data-title');
+    positionTip(e);
   });
   el.addEventListener('mousemove', function(e) {
-    tip.style.left = (e.clientX + 14) + "px";
-    tip.style.top = (e.clientY - 8) + "px";
+    positionTip(e);
   });
   el.addEventListener('mouseleave', function() {
     tip.style.display = "none";
